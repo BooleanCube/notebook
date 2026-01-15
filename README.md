@@ -33,7 +33,8 @@ This project uses a Python script to aggregate the individual notes into a singl
 
 ### 1. Create a Note
 
-Create a new branch for this note, since for every commit pushed to the main branch, the server's notebook cache gets invalidated.
+First things first, create a new branch for the note you are creating/updating.
+This is important because for every push made to the main branch, the redis notebook cache on the live server is invalidated.
 
 Create a new folder for your topic (e.g., `new-topic-name/`) and add two files:
 
