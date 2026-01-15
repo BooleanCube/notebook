@@ -1,0 +1,13 @@
+{
+  "title": "Chaos Theory",
+  "summary": "Playing around with chaos theory simulations. Creating equilibrium graphs and visualizing the chaotic maps.",
+  "tags": [
+    "chaos",
+    "math",
+    "research",
+    "theory"
+  ],
+  "date": 1673704602000,
+  "cover": "https://booleancube.github.io/assets/images/articles/chaos.jpeg",
+  "hidden": false
+}

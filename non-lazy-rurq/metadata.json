@@ -1,0 +1,12 @@
+{
+  "title": "Non-Lazy RURQ Data Structure",
+  "summary": "Learn about a completely bottom-up and iterative approach to the Segment Tree!",
+  "tags": [
+    "hackpack",
+    "programming",
+    "data-structure"
+  ],
+  "date": 1759672602000,
+  "cover": "https://visualgo.net/img/png/segmenttree.png",
+  "hidden": false
+}

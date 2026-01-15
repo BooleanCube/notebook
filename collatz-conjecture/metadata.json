@@ -1,0 +1,12 @@
+{
+  "title": "Collatz Conjecture",
+  "summary": "A simple recursive math equation (3n+1, n/2) has stumped many genius mathematicians for 8 decades and has been unsolved.",
+  "tags": [
+    "conjecture",
+    "math",
+    "research"
+  ],
+  "date": 1664287002000,
+  "cover": "https://booleancube.github.io/assets/images/articles/collatz.jpg",
+  "hidden": false
+}
