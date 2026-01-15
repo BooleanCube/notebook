@@ -1,0 +1,84 @@
+{
+  "pages": [
+    {
+      "slug": "collatz-conjecture",
+      "title": "Collatz Conjecture",
+      "summary": "A simple recursive math equation (3n+1, n/2) has stumped many genius mathematicians for 8 decades and has been unsolved.",
+      "tags": [
+        "conjecture",
+        "math",
+        "research"
+      ],
+      "date": 0,
+      "cover": "https://booleancube.github.io/assets/images/articles/collatz.jpg",
+      "hidden": false
+    },
+    {
+      "slug": "chaos-theory",
+      "title": "Chaos Theory",
+      "summary": "Playing around with chaos theory simulations. Creating equilibrium graphs and visualizing the chaotic maps.",
+      "tags": [
+        "chaos",
+        "math",
+        "research",
+        "theory"
+      ],
+      "date": 0,
+      "cover": "https://booleancube.github.io/assets/images/articles/chaos.jpeg",
+      "hidden": false
+    },
+    {
+      "slug": "non-lazy-rurq",
+      "title": "Non-Lazy RURQ Data Structure",
+      "summary": "Learn about a completely bottom-up and iterative approach to the Segment Tree!",
+      "tags": [
+        "hackpack",
+        "programming",
+        "data-structure"
+      ],
+      "date": 0,
+      "cover": "https://visualgo.net/img/png/segmenttree.png",
+      "hidden": false
+    },
+    {
+      "slug": "technical-interviews",
+      "title": "Cracking The Technical Interview",
+      "summary": "Learn my step by step outline of a perfect technical interview.",
+      "tags": [
+        "technical",
+        "guide",
+        "programming"
+      ],
+      "date": 0,
+      "cover": "https://i.imgur.com/ABSMW3G.png",
+      "hidden": false
+    },
+    {
+      "slug": "cpp-compiler",
+      "title": "Quant Grind #1: C++ Compilation Model",
+      "summary": "Join me on my quant grind journey to explore and learn about the intricate design of the c++ compilation model.",
+      "tags": [
+        "quant",
+        "cpp",
+        "compiler"
+      ],
+      "date": 0,
+      "cover": "https://i.imgur.com/08X2nmF.png",
+      "hidden": false
+    },
+    {
+      "slug": "computer-logic",
+      "title": "Quant Grind #2: Computer Logic",
+      "summary": "Join me on my quant grind journey to learn the fundamentals of computer logic and how it helps design mircoprocessors.",
+      "tags": [
+        "quant",
+        "computer",
+        "logic",
+        "design"
+      ],
+      "date": 0,
+      "cover": "https://i.imgur.com/Qav1lct.png",
+      "hidden": false
+    }
+  ]
+}
