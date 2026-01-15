@@ -9,7 +9,7 @@
         "math",
         "research"
       ],
-      "date": 0,
+      "date": 1664287002,
       "cover": "https://booleancube.github.io/assets/images/articles/collatz.jpg",
       "hidden": false
     },
@@ -23,7 +23,7 @@
         "research",
         "theory"
       ],
-      "date": 0,
+      "date": 1673704602,
       "cover": "https://booleancube.github.io/assets/images/articles/chaos.jpeg",
       "hidden": false
     },
@@ -36,7 +36,7 @@
         "programming",
         "data-structure"
       ],
-      "date": 0,
+      "date": 1759672602,
       "cover": "https://visualgo.net/img/png/segmenttree.png",
       "hidden": false
     },
@@ -49,7 +49,7 @@
         "guide",
         "programming"
       ],
-      "date": 0,
+      "date": 1762178202,
       "cover": "https://i.imgur.com/ABSMW3G.png",
       "hidden": false
     },
@@ -62,7 +62,7 @@
         "cpp",
         "compiler"
       ],
-      "date": 0,
+      "date": 1765720602,
       "cover": "https://i.imgur.com/08X2nmF.png",
       "hidden": false
     },
@@ -76,7 +76,7 @@
         "logic",
         "design"
       ],
-      "date": 0,
+      "date": 1766498202,
       "cover": "https://i.imgur.com/Qav1lct.png",
       "hidden": false
     }
