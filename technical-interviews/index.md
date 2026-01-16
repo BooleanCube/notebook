@@ -126,7 +126,7 @@ As you code:
 
 If you realize you made a mistake, don't panic. Explain what you noticed and how you're going to fix it. Interviewers care more about your debugging process than whether you got it perfect on the first try.
 
-# Why This Formula Works
+# Why This Formula Works?
 
 This systematic approach works because it demonstrates everything interviewers are looking for:
 
