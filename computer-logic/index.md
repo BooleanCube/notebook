@@ -104,3 +104,7 @@ To understand how these switches work, we must look at the underlying materials 
 - [learn.sparkfun.com](https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all)
 - "Digital Design and Computer Architecture, RISC-V Edition," by D. M. Harris and S. L. Harris (Morgan Kaufmann, 2021)
 - [Making logic gates from transistors - YouTube](https://youtu.be/sTu3LwpF6XI)
+
+---
+
+*Written by BooleanCube :]*

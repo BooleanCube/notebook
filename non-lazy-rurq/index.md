@@ -11,29 +11,29 @@ The complete implementation of this data structure can be found here: [github.co
 
 ---
 
-# Storage
+# 1. Storage
 
 ![storage](https://i.imgur.com/RkrUov4.gif)
 
 The structure stores data in contiguous arrays (vectors):
 
-* `n` — number of elements in the array (constructor parameter).
-* `tree` — a vector of length `2*n` that holds the **segment sums** (one entry per node). Node indices used are `1 .. 2*n-1`. Index `0` is unused.
-* `lazy` — a vector of length `2*n` that stores **per-element pending additions** for the node’s whole segment. (`lazy[idx]` means “add this value to every element in `rng[idx]` when/if children are visited”.)
-* `rng` — a `vector<pair<int,int>>` of length `2*n` mapping `idx -> [L, R]` (inclusive, array indices) for the node `idx`. This lets us compute segment length quickly: `len = R - L + 1`.
-* `vt` alias — `using vt = vector<T>;` for convenience.
+- `n` — number of elements in the array (constructor parameter).
+- `tree` — a vector of length `2*n` that holds the **segment sums** (one entry per node). Node indices used are `1 .. 2*n-1`. Index `0` is unused.
+- `lazy` — a vector of length `2*n` that stores **per-element pending additions** for the node’s whole segment. (`lazy[idx]` means “add this value to every element in `rng[idx]` when/if children are visited”.)
+- `rng` — a `vector<pair<int,int>>` of length `2*n` mapping `idx -> [L, R]` (inclusive, array indices) for the node `idx`. This lets us compute segment length quickly: `len = R - L + 1`.
+- `vt` alias — `using vt = vector<T>;` for convenience.
 
 **Indexing rule (bottom-up layout):**
 
-* Leaves are at indices `n .. 2*n-1`, and leaf `idx = n + i` maps to array element `i` (0-indexed).
-* Internal nodes are `1 .. n-1`.
-* Root is index `1`.
+- Leaves are at indices `n .. 2*n-1`, and leaf `idx = n + i` maps to array element `i` (0-indexed).
+- Internal nodes are `1 .. n-1`.
+- Root is index `1`.
 
 This design avoids recursion during updates/queries and is friendly to iterative algorithms.
 
 ---
 
-# Construction
+# 2. Construction
 
 ![construction](https://i.imgur.com/5MV42gM.gif)
 
@@ -44,8 +44,8 @@ The constructor must:
 
 A safe and simple `rng` construction is recursive, starting at the root index `1`. For node `idx`:
 
-* If `idx >= n` → it's a leaf; `rng[idx] = {idx - n, idx - n}`.
-* Else → recursively build children and set `rng[idx] = { rng[left].first, rng[right].second }`.
+- If `idx >= n` → it's a leaf; `rng[idx] = {idx - n, idx - n}`.
+- Else → recursively build children and set `rng[idx] = { rng[left].first, rng[right].second }`.
 
 **Corrected constructor & `_construct` snippet**
 
@@ -78,12 +78,12 @@ struct segtree {
 
 Notes:
 
-* The implementation works for any `n >= 1` — `rng` stores exact ranges even when `n` is not a power of two.
-* `tree` and `lazy` are initialized with `def` (0 for sums).
+- The implementation works for any `n >= 1` — `rng` stores exact ranges even when `n` is not a power of two.
+- `tree` and `lazy` are initialized with `def` (0 for sums).
 
 ---
 
-# Range update (how it works)
+# 3. Range update (how it works)
 
 ![range-update](https://i.imgur.com/zLFFfIa.gif)
 
@@ -91,12 +91,12 @@ Notes:
 
 **High-level idea (bottom-up / iterative covering):**
 
-* We pick a minimal set of whole nodes whose segments exactly cover the update interval `[l, r]` using the standard iterative segment-tree trick:
+- We pick a minimal set of whole nodes whose segments exactly cover the update interval `[l, r]` using the standard iterative segment-tree trick:
 
-  * If `l` is a right child, we take node `l`.
-  * If `r` is a left child, we take node `r`.
-  * Then shift `l` and `r` to their parents (`l >>= 1; r >>= 1`) and repeat until they meet.
-* For each chosen node `idx`:
+  - If `l` is a right child, we take node `l`.
+  - If `r` is a left child, we take node `r`.
+  - Then shift `l` and `r` to their parents (`l >>= 1; r >>= 1`) and repeat until they meet.
+- For each chosen node `idx`:
 
   1. we apply the *total* addition to `tree[idx]` and *also* add that total to all ancestors so `tree` remains consistent; and
   2. we record the per-element lazy increment in `lazy[idx]` so that descendants (if read later) can compute ancestor contributions.
@@ -148,7 +148,7 @@ T value(int idx, T val) { return val * (rng[idx].second - rng[idx].first + 1); }
 
 ---
 
-# Range query (how it works)
+# 4. Range query (how it works)
 
 ![range-query](https://i.imgur.com/gRpsJXP.gif)
 
@@ -156,11 +156,11 @@ T value(int idx, T val) { return val * (rng[idx].second - rng[idx].first + 1); }
 
 **High-level idea:**
 
-* As with updates, iterate bottom-up picking the minimal nodes that cover `[l, r]`.
-* For each chosen node `idx`, the sum contribution is:
+- As with updates, iterate bottom-up picking the minimal nodes that cover `[l, r]`.
+- For each chosen node `idx`, the sum contribution is:
 
-  * `tree[idx]` (which already contains updates applied *at* that node), **plus**
-  * contributions from **ancestor** `lazy` values that apply to `idx` but were never pushed down to `idx` (those are collected with `_climbLazy` and converted to totals with `value`).
+  - `tree[idx]` (which already contains updates applied *at* that node), **plus**
+  - contributions from **ancestor** `lazy` values that apply to `idx` but were never pushed down to `idx` (those are collected with `_climbLazy` and converted to totals with `value`).
 
 **Why climb ancestors?**
 `_updateLazy` updates `tree` for the node’s total but *does not* push that node’s `lazy` value down to children. If we visit a descendant node later, its `tree[desc]` will **not** include lazy values from its ancestors. `_climbLazy(desc)` aggregates `lazy` values from all ancestors so we can add their effect for the descendant node.
@@ -191,13 +191,13 @@ T _climbLazy(int idx, T cnt = def) {
 }
 ```
 
-* `tree[idx]` already includes contributions from updates that were targeted at node `idx` directly.
-* `value(idx, _climbLazy(idx))` computes totals produced by lazies on **ancestors** of `idx`.
-* `op(a,b,c)` is provided as `a + (b + c)` (i.e., sum combination).
+- `tree[idx]` already includes contributions from updates that were targeted at node `idx` directly.
+- `value(idx, _climbLazy(idx))` computes totals produced by lazies on **ancestors** of `idx`.
+- `op(a,b,c)` is provided as `a + (b + c)` (i.e., sum combination).
 
 ---
 
-## API interface
+# 5. API interface
 
 Public methods and how to use them:
 
@@ -209,42 +209,42 @@ auto s = st.query(l, r);    // returns the sum of elements in [l, r] (inclusive)
 
 Details & contracts:
 
-* Inputs `l` and `r` are **inclusive** and **0-indexed**.
-* `T` must support `+`, `*` with `int` lengths (or equivalent) and a zero default (`def`) — commonly `long long` is used for sums.
-* `update` and `query` expect `0 <= l <= r < n`.
-* `tree` and `lazy` are internal; do not modify them externally.
+- Inputs `l` and `r` are **inclusive** and **0-indexed**.
+- `T` must support `+`, `*` with `int` lengths (or equivalent) and a zero default (`def`) — commonly `long long` is used for sums.
+- `update` and `query` expect `0 <= l <= r < n`.
+- `tree` and `lazy` are internal; do not modify them externally.
 
 ---
 
-## Time and space complexity
+# 6. Time and space complexity
 
 **Space:** `O(n)` memory using arrays of size `2*n`:
 
-* `tree` length `2*n`
-* `lazy` length `2*n`
-* `rng` length `2*n`
+- `tree` length `2*n`
+- `lazy` length `2*n`
+- `rng` length `2*n`
 
 **Time per operation (practical / average):**
 
-* Each `update` or `query` visits `O(log n)` nodes (the set of nodes partitioning the interval).
-* However, this implementation performs an **ancestor walk** (`_updateLazy` or `_climbLazy`) for each visited node:
+- Each `update` or `query` visits `O(log n)` nodes (the set of nodes partitioning the interval).
+- However, this implementation performs an **ancestor walk** (`_updateLazy` or `_climbLazy`) for each visited node:
 
-  * `_updateLazy` updates all ancestors (an `O(log n)` walk) whenever a chosen node is updated, and
-  * `_climbLazy` walks upward to aggregate lazies for each visited node in a query (another `O(log n)` each).
-* Therefore **worst-case** time per update or query can be `O((log n)^2)` in the current code.
+  - `_updateLazy` updates all ancestors (an `O(log n)` walk) whenever a chosen node is updated, and
+  - `_climbLazy` walks upward to aggregate lazies for each visited node in a query (another `O(log n)` each).
+- Therefore **worst-case** time per update or query can be `O((log n)^2)` in the current code.
 
 **How to get strict `O(log n)` worst-case:**
 
-* Use an iterative **push/pull** approach:
+- Use an iterative **push/pull** approach:
 
-  * `push` lazies down along the path from root to the two target leaves before performing your operation, so per-node `_climbLazy` becomes unnecessary.
-  * After modifying leaves, `pull` (recompute) parents upward once.
-* That pattern is a standard iterative lazy tree optimization and yields `O(log n)` worst-case per operation. If you want, I can produce that optimized implementation.
-* Downside to this approach is that it takes significantly more time to implement when not needed.
+  - `push` lazies down along the path from root to the two target leaves before performing your operation, so per-node `_climbLazy` becomes unnecessary.
+  - After modifying leaves, `pull` (recompute) parents upward once.
+- That pattern is a standard iterative lazy tree optimization and yields `O(log n)` worst-case per operation. If you want, I can produce that optimized implementation.
+- Downside to this approach is that it takes significantly more time to implement when not needed.
 
 ---
 
-# Usage examples
+# 7. Usage
 
 ![complexity](https://i.imgur.com/ZtMZzyk.gif)
 
@@ -282,12 +282,14 @@ st.query(2, 3); // expected 7 + 2 = 9
 
 ---
 
-## Notes, caveats & suggestions
+# 8. Notes, caveats & suggestions
 
-* **Undefined behavior fix:** the original compact form used `lazy[l++] = op(lazy[l], val);` — that’s undefined in C++ and must be split into separate operations (`lazy[l] = op(...); ++l;`).
-* **Type `T` constraints:** `T` must behave like a numeric type supporting `+` and `*` by integer lengths. Use `long long` (or `int64_t`) if sums could be large.
-* **Performance tradeoff:** the current code is clear and compact, and in many practical cases it runs fast; for guaranteed worst-case `O(log n)` operations, the iterative push/pull pattern is preferred.
-* **Intervals:** the code uses inclusive intervals `[l, r]` (common for competitive programming). If you prefer half-open `[l, r)` semantics, the interface and some loop conditions simplify; I can convert it on request.
-* **Testing:** test edge cases (small `n` like `n=1`, updates where `l==r`, and non-power-of-two `n`) — this implementation’s `rng` logic handles non-power-of-two `n` correctly.
+- **Undefined behavior fix:** the original compact form used `lazy[l++] = op(lazy[l], val);` — that’s undefined in C++ and must be split into separate operations (`lazy[l] = op(...); ++l;`).
+- **Type `T` constraints:** `T` must behave like a numeric type supporting `+` and `*` by integer lengths. Use `long long` (or `int64_t`) if sums could be large.
+- **Performance tradeoff:** the current code is clear and compact, and in many practical cases it runs fast; for guaranteed worst-case `O(log n)` operations, the iterative push/pull pattern is preferred.
+- **Intervals:** the code uses inclusive intervals `[l, r]` (common for competitive programming). If you prefer half-open `[l, r)` semantics, the interface and some loop conditions simplify; I can convert it on request.
+- **Testing:** test edge cases (small `n` like `n=1`, updates where `l==r`, and non-power-of-two `n`) — this implementation’s `rng` logic handles non-power-of-two `n` correctly.
 
+---
 
+*Written by BooleanCube :]*

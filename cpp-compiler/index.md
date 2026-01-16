@@ -103,7 +103,7 @@ You can stop the compiler after this stage using the `-E` flag while compiling t
    </li>
    <li>
       <p><strong>File Inclusion (<code>#include</code>):</strong> The preprocessor replaces <code>#include</code> directives with the full textual content of the specified header file. This is a literal &quot;copy and paste&quot; operation. This allows a program to be split into multiple files, where header files (<code>.h</code> or <code>.hpp</code>) provide interface declarations. We could call our file <code>paxDB.not-a-header</code> and say <code>#include &quot;paxDB.not-a-header&quot;</code> instead, and it’s still a header file. The <code>.h</code> / <code>.hpp</code> suffix is just a convention. What the compiler proper sees is exactly the same (bar those <code>#</code> comments) as our original paxCount.c (the one that declared getCount directly instead of #includeing the header file).</p>
-      
+
 ```shell
 $ gcc -E -Wall -Werror paxCount.c
 # 1 "paxCount.c"
@@ -126,7 +126,7 @@ int main(int argc, char** argv)
    </li>
    <li>
       <strong>Macro Expansion (<code>#define</code>):</strong> It replaces defined constants or macros with their specific values or code snippets. Macros act as text substitution, which differs significantly from runtime function calls. <code>#define</code> can also take parameters, to create preprocessor macros as shown by the examples below.
-      
+
 ```shell
 $ gcc -E -Wall -Werror paxCheck.c
 # 1 "paxCheck.c"
@@ -210,10 +210,9 @@ int getCount(char* flightNumber, int deflt);
    </li>
 </ul>
 
+# 2. Compilation (The "Front End")
 
-# Step 2: Compilation (The "Front End")
-
-The compiler is a program that takes high level language (in our case: C++) as input, and translates it to a intermediate representation (in our case: Assembly Language). The process of compilation takes place in several phases: 
+The compiler is a program that takes high level language (in our case: C++) as input, and translates it to a intermediate representation (in our case: Assembly Language). The process of compilation takes place in several phases:
 
 - Frontend: Source Code -> Lexer -> Parser -> Semantic Analyzer -> Optimizer -> Code Generator -> Assembly Code
 - Backend: Assembly Code -> Assembler -> Linker -> Machine Code
@@ -268,7 +267,7 @@ Let's dive deeper into the substeps involving analysis and synthesis:
    </li>
 </ol>
 
-# Step 3: Assembly
+# 3. Assembly
 
 The assembler translates the human-readable assembly code into object code (machine instructions). The compiler comes from your compiler vendor (in this case, GNU), whereas the assembler comes with your system. This implies that the assembler must create object files in a format that the linker will understand (on Linux, and many other systems, this is the "Executable and Linkable Format", or ELF). We will talk more about the linker in depth shortly, but for now just know the linker merges multiple object files into a single executable file.
 
@@ -316,13 +315,13 @@ $ ./a.out 1 ; echo $?
 
 *Note:* You rarely need to think about compilation and assembly as two separate stages. Personally, my main use case for looking at the assembler code is to figure out what optimizations the compiler is and isn’t performing.
 
-# Step 4: Linking
+# 4. Linking
 
 The linker is responsible for combining one or more object files and libraries into a single Executable File.
 
 - **Input:** All the individual object files (`.o` or `.obj`) produced by the assembler.
 - **Symbol Resolution:** The linker resolves references. If `FileA.o` calls a function `calculate()` defined in `FileB.o`, the linker connects the call site in A to the definition in B. It replaces all the placeholder addresses in the individual object files with real memory addresses (or offsets).
-    - If a definition could not be found, the linker issues an "undefined reference" error. If multiple definitions exist for the same symbol (violating the One Definition Rule), a "duplicate symbol" error occurs.
+  - If a definition could not be found, the linker issues an "undefined reference" error. If multiple definitions exist for the same symbol (violating the One Definition Rule), a "duplicate symbol" error occurs.
 - **Standard Libraries:** The linker connects your C++ code with Standard Template Library (STL) functions by matching function/variable symbols (names) between your compiled object files and pre-compiled library files (like `libstdc++.a` or `msvcrt.lib`). When the compiler sees `std::cout << "Hi";`, it generates a reference to an `_Z4cout...` symbol (mangled name) in your code's object file, but doesn't know where it lives. The linker finds the actual machine code for `_Z4cout` within the C++ standard library's object files/libraries, resolves the reference by substituting the correct memory address, and bundles everything into a single executable, creating calls to the library's concrete code.
 - **Output:** A single executable file with machine code according to your CPU's ISA (`.out` for linux, `.exe` for windows).
 
@@ -404,7 +403,7 @@ collect2: ld returned 1 exit status
 
 Note: Even with internal linkage, you can reference a function or variable if you somehow know its address. Internal linkage simply stops you from referring to it by name (which, for most purposes, is all that really matters).
 
-### Linking C++ with C Libraries
+## Linking C++ with C Libraries
 
 What happens if we update our `paxCount` program from C to C++ but our `paxDB` code (being used by other programs) can't be updated that easily? Can we still link C libraries to C++ programs somehow?
 
@@ -472,7 +471,7 @@ $ ./paxCount 1 ; echo $?
 15
 ```
 
-### Namespaces
+## Namespaces
 
 A namespace is a logical container that groups names (like classes, functions, or variables) to prevent naming conflicts, similar to how folders organize files, allowing the same name to be used in different contexts without confusion.
 
@@ -620,7 +619,7 @@ $ nm cargoDB.o
 
 Unnamed namespaces have an implicit using directive placed at the translation unit’s global scope. Depending on your compiler implementation, names inside an unnamed namespace will be given internal linkage; or the compiler will generate a random namespace name (guaranteed to be unique) and be given external linkage. It seems our compiler chooses the internal linkage method, with the same generated name for both unnamed namespaces instead of generating random unique namespace names.
 
-### Static vs Dynamic Linking
+## Static vs Dynamic Linking
 
 Multiple object files can be packaged together into a single archive called a static library. You can use the `ar` tool to bunch object files into **static libraries**.
 
@@ -738,17 +737,17 @@ CXXFLAGS = -Wall -Wextra -Werror -fPIC
 all: paxCount
 
 paxCount: paxCount.cpp paxDB.h libFlightDBs.so
-	$(CXX) $(CXXFLAGS) -o $@ paxCount.cpp -L. -lFlightDBs
+ $(CXX) $(CXXFLAGS) -o $@ paxCount.cpp -L. -lFlightDBs
 
 libFlightDBs.so: paxDB.o cargoDB.o
-	$(CXX) -shared -o $@ $^
+ $(CXX) -shared -o $@ $^
 
 # Static pattern rule
 paxDB.o cargoDB.o: %.o: %.cpp %.h
-	$(CXX) -c $(CXXFLAGS) $<
+ $(CXX) -c $(CXXFLAGS) $<
 
 clean:
-	rm -f paxCount libFlightDBs.so *.o
+ rm -f paxCount libFlightDBs.so *.o
 ```
 
 When you run `make` (with no arguments), it automatically runs the first target defined in the Makefile, which is conventionally named `all` and typically builds everything needed for the project. In this case, the first rule defines only the `paxCount` prerequisite which refers to the second rule with the `paxCount` target.
@@ -804,10 +803,15 @@ paxDB.o: paxDB.cpp paxDB.h
 # Resources
 
 **Online:**
+
 - [learncpp.com](https://www.learncpp.com) - comprehensive free tutorial
 - [godbolt.org](https://godbolt.org) - compiler explorer
 - [david.rothlis.net](https://david.rothlis.net/c/compilation_model/) - thorough c++ study
 
 **Videos:**
-- https://youtu.be/ksJ9bdSX5Yo - video explanation w/ examples
 
+- <https://youtu.be/ksJ9bdSX5Yo> - video explanation w/ examples
+
+---
+
+*Written by BooleanCube :]*
