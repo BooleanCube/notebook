@@ -1,6 +1,16 @@
 import os, json, re
 
 
+import re
+
+def sanitize_id(text):
+    slug = text.lower() # 1. Lowercase
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug) # 2. Remove special characters (keep a-z, 0-9, whitespace, and hyphens)
+    slug = re.sub(r'\s+', '-', slug) # 3. Replace spaces with dashes
+    slug = re.sub(r'-+', '-', slug) # 4. Remove consecutive dashes (e.g., "a---b" ->
+    return slug
+
+
 def parse_markdown_headers(markdown_text):
     """
     Parses a markdown string and extracts headers with level, id, and title.
@@ -33,13 +43,7 @@ def parse_markdown_headers(markdown_text):
             level = len(hashes)
             title = raw_title.strip()
 
-            # Generate ID (slug format)
-            # 1. Lowercase
-            # 2. Remove non-alphanumeric characters (excluding spaces/hyphens)
-            # 3. Replace spaces with hyphens
-            slug = title.lower()
-            slug = re.sub(r'[^\w\s-]', '', slug) # Remove special chars
-            slug = re.sub(r'\s+', '-', slug)     # Replace spaces with -
+            slug = sanitize_id(title)
 
             headers.append({
                 "level": level,
