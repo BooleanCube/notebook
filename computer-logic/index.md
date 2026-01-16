@@ -96,6 +96,14 @@ To understand how these switches work, we must look at the underlying materials 
 
 - **Diodes**: When n-type and p-type silicon are joined, the form a **diode**. A diode acts as a one-way valve for current. The p-type region is called the anode and the n-type region is called the cathode. When the voltage on the anode rises above the voltage on the cathode, the diode is forward biased, and current flows through the diode from the anode to the cathode. But wen the anode voltage is lower than the voltage on the cathode, the diode is reverse biased, and no current flows.
 
+### test d1c3ce395fc87d000000
+
+#### test sTu3LwpF6XI
+
+##### test x86_64
+
+###### test B365M
+
 ---
 
 # Resources
