@@ -325,7 +325,7 @@ The linker is responsible for combining one or more object files and libraries i
 - **Standard Libraries:** The linker connects your C++ code with Standard Template Library (STL) functions by matching function/variable symbols (names) between your compiled object files and pre-compiled library files (like `libstdc++.a` or `msvcrt.lib`). When the compiler sees `std::cout << "Hi";`, it generates a reference to an `_Z4cout...` symbol (mangled name) in your code's object file, but doesn't know where it lives. The linker finds the actual machine code for `_Z4cout` within the C++ standard library's object files/libraries, resolves the reference by substituting the correct memory address, and bundles everything into a single executable, creating calls to the library's concrete code.
 - **Output:** A single executable file with machine code according to your CPU's ISA (`.out` for linux, `.exe` for windows).
 
-### Internal vs External Linkage
+## Internal vs External Linkage
 
 When we looked at the symbols in `paxDB.o` using the `nm` tool:
 
