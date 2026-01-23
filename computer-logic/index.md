@@ -127,12 +127,18 @@ Adding Boron (group III) creates **p-type** silicon, which has "holes" (missing 
 
 ### Diodes
 
-A **diode** is a semiconductor device, typically made of doped silicon, that essentially acts as a one-way valve or switch for current.
+A **diode** is a semiconductor device, typically made of doped silicon, that essentially acts as a one-way switch for current.
 It allows current to flow easily in one direction but severely restricts current from flowing in the opposite direction.
 
-###### TODO: define diode and then construct it
+I want to go on a slight tangent here real fast and explain the types of current as it is relevant to diodes and transistors.
+DC (Direct Current) flows steadily in one single direction (like from a battery), while AC (Alternating Current) periodically reverses direction, flowing back and forth in cycles (like wall outlets).
+AC is ideal for power grids because its voltage can be easily changed with transformers for efficient long-distance transmission, while DC is used by most electronics and batteries, often requiring conversion from AC.
+If you were curious, power grids use generators and transformers that rotate magnets to precisely control voltage levels that push electrons back and forth.
+"But how exactly?" is beyond the scope of this study, and I will not be covering it here.
 
-When n-type and p-type silicon are joined, they form a **diode**. A diode acts as a one-way valve for current.
+![currentdirection](https://i.imgur.com/fLfEv7w.png)
+
+Back to topic. When n-type and p-type silicon are joined, they form a **diode**. A diode acts as a one-way valve for current.
 The p-type region is called the anode and the n-type region is called the cathode.
 When the voltage on the anode rises above the voltage on the cathode, the diode is forward biased, and current flows through the diode from the anode to the cathode.
 But when the anode voltage is lower than the voltage on the cathode, the diode is reverse biased, and no current flows.
@@ -142,7 +148,7 @@ The diode symbol intuitively shows that current only flows in one direction.
 
 ### Capacitors
 
-###### TODO: define capacitor and capacitance, explain how it works, and then construct it
+<!--  TODO: define capacitor and capacitance, explain how it works, and then construct it, also explain the process of charging and discharging capacitors -->
 
 A **capacitor** consists of two conductors separated by an insulating dielectric.
 A dielectric is an electrical insulator that supports an electrical field by becoming polarized, meaning its charges shift slightly but don't flow as current, which allows it to store energy.
@@ -153,7 +159,22 @@ The capacitance is proportional to the size of the conductors and inversely prop
 Capacitance is important because charging or discharging a conductor takes time and energy.
 More capacitance means that a circuit will be slower and require more energy to operate.
 
-<img src="https://cdn-shop.adafruit.com/970x728/1589-02.jpg" width=300 />
+<img src="https://cdn-shop.adafruit.com/970x728/1589-02.jpg" width=300 alt="real capacitor example" />
+
+### Current Rectification
+
+Our homes are powered by power grids that provide an AC to our wall outlets.
+And our electronic devices need to convert the AC from these outlets to DC because most sensitive electronics (computers, phones, etc.) run on a steady, one-way flow of electrons (DC), not the fluctuating AC waveform.
+Our devices convert AC to DC using a process called **rectification** typically involving: a transformer to adjust the voltage, a rectifier circuit (diodes) to change AC to pulsating DC, a capacitor to smooth the ripples, and a voltage regulator to provide a steady, constant output for electronics.
+
+This is a breakdown of all the steps in the rectification process:
+
+1. **Step-Down Transformer**: The high AC voltage from the wall outlet is reduced to a lower, more manageable AC voltage level for the device.
+2. **Rectifier (Diodes)**: Diodes allow current to flow in only one direction.
+    - **Half-wave rectification**: Blocks the negative half of the AC wave, resulting in a pulsating DC.
+    - **Full-wave rectification**: Uses four diodes to flip the negative half of the wave, making it positive, creating a smoother, but still bumpy, DC output.
+3. **Filter (Capacitor)**: A capacitor charges up during the peaks of the pulsating DC and discharges during the dips, smoothing out the ripples and creating a steadier DC.
+4. **Voltage Regulator**: The regulator ensures a precise, constant DC voltage by compensating for any remaining fluctuations, providing the stable power needed for sensitive electronics.
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "title": "Quant Grind #2: Computer Logic",
+  "title": "Quant Grind #2: Computer Logic and Design",
   "summary": "Join me on my quant grind journey to learn the fundamentals of computer logic and how it helps design mircoprocessors.",
   "tags": [
     "quant",
@@ -9,5 +9,5 @@
   ],
   "date": 1766498202000,
   "cover": "https://i.imgur.com/Qav1lct.png",
-  "hidden": true
+  "hidden": false
 }
