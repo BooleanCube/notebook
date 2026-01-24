@@ -181,7 +181,14 @@ This layer is essential, as it allows a voltage to develop across the plates by 
 When a voltage is applied and electrons gather on a plate, positive charges in the dielectric shift slightly toward the negatively-charged plate, negative charges shift the other way, creating an internal field that supports the external one. This process is called polarization.
 The dielectric supports the electrical field being created between the conductive plates (positive and negative) and makes the field strong enough to hold the charges in the plate and store electrical energy.
 
-<!-- DC vs AC for capcitor, capacitance, charging/discharging, filter circuits ? -->
+<!-- DC vs AC for capcitor, capacitance, charging/discharging, filter circuits (applications of capacitors in AC circuits) ? -->
+
+While a capacitor is placed in a DC circuit, it charges up to match the supply voltage, and once charged, it effectively blocks the flow of current.
+In an AC circuit, however, the capacitor behaves differently.
+Since AC constantly changes direction, the capacitor repeatedly charges and discharges, creating an effect that lets AC current "pass through" the capacitor.
+I will talk more about the charging/discharging process and the applications of capacitors in AC circuits soon.
+
+![capacitorciruit](https://i.imgur.com/QF97Qta.png)
 
 <!-- after explaning how charging/discharging works -->
 Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity flows through the capacitor.
@@ -212,6 +219,7 @@ This is a breakdown of all the steps in the rectification process:
 - [Making logic gates from transistors - YouTube](https://youtu.be/sTu3LwpF6XI)
 - [learn.sparkfun.com (physics of electricity)](https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all)
 - [fluke.com/blog/electrical/diode (what is a diode)](https://www.fluke.com/en-us/learn/blog/electrical/what-is-a-diode)
+- [florisera.com/capacitors (what is a capacitor)](https://florisera.com/introduction-to-capacitors/)
 
 ---
 
