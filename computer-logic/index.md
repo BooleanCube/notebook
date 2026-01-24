@@ -142,13 +142,26 @@ Back to topic. When n-type and p-type silicon are joined, they form a **diode**.
 The p-type region is called the anode and the n-type region is called the cathode.
 When the voltage on the anode rises above the voltage on the cathode, the diode is forward biased, and current flows through the diode from the anode to the cathode.
 But when the anode voltage is lower than the voltage on the cathode, the diode is reverse biased, and no current flows.
-The diode symbol intuitively shows that current only flows in one direction.
 
-![diodes](https://i.imgur.com/RjCRjuf.png)
+When a PN junction diode is formed, a depletion region is forms at the junction.
+The depletion region of the diode is an insulating area at the PN junction, void of free charge carriers, where the holes from the p-type region have been filled by the free electrons from the n-type region.
+The accumulated positive ions (N-side) and negative ions (P-side) create an electric field, also known as the potential barrier, that stops further diffusion (current).
+When you apply a forward bias (positive to P-side, negative to N-side), electrons flow into the n-type region of the diode adding more free electrons to the mix.
+This, in turn, narrows the depletion region (voltage pushes the electrons towards the P-side breaking the potential barrier), allowing current to flow through the diode.
+However, when you apply a reverse bias (positive to N-side, negative to P-side), electrons flow into the p-type region of the diode filling the holes within the material.
+This ends up having the opposite effect and widens the depletion region (carriers are pulled towards the P-side and free electrons pushed towards the N-side), fully stopping current from flowing through.
+Here is a quick [short-form video](https://www.youtube.com/shorts/IEUlctOo0cI) to help visualize and understand the physics behind a diode.
+
+Diodes don't always allow current to flow in forward bias though.
+A silicon diode requires a specific minimum voltage (known as the forward voltage drop ~ 0.6-1.0 V) to overcome its potential barrier before conducting electricity, after which current increases exponentially.
+Even though diodes block current with reverse bias, if the reverse voltage is high enough (exceeding the diode's reverse breakdown voltage), it will conduct, but this usually causes permanent failure.
+
+![diodes](https://i.imgur.com/RjCRjuf.png) <br>
+*The diode symbol intuitively shows that current only flows in one direction.*
 
 ### Capacitors
 
-<!--  TODO: define capacitor and capacitance, explain how it works, and then construct it, also explain the process of charging and discharging capacitors -->
+<!--  TODO: define capacitor and capacitance, explain how it works, and then construct it, also explain the process of charging and discharging capacitors
 
 A **capacitor** consists of two conductors separated by an insulating dielectric.
 A dielectric is an electrical insulator that supports an electrical field by becoming polarized, meaning its charges shift slightly but don't flow as current, which allows it to store energy.
@@ -158,6 +171,20 @@ That is why the opposite plate accumulates the opposite charge. The capacitance 
 The capacitance is proportional to the size of the conductors and inversely proportional the distance between them.
 Capacitance is important because charging or discharging a conductor takes time and energy.
 More capacitance means that a circuit will be slower and require more energy to operate.
+-->
+
+A **capacitor** is an electrical circuit component that temporarily lets current flow through and temporarily stores electrical energy (like a battery).
+It contains two conductive plates separated by an insulating dielectric.
+A dielectric is an electrical insulator (glass, ceramic, plastic, etc) that supports an electrical field by becoming polarized, meaning its charges shift slightly but not enough for current to flow.
+This layer is essential, as it allows a voltage to develop across the plates by holding an electric charge instead of letting current flow between them.
+
+When a voltage is applied and electrons gather on a plate, positive charges in the dielectric shift slightly toward the negatively-charged plate, negative charges shift the other way, creating an internal field that supports the external one. This process is called polarization.
+The dielectric supports the electrical field being created between the conductive plates (positive and negative) and makes the field strong enough to hold the charges in the plate and store electrical energy.
+
+<!-- DC vs AC for capcitor, capacitance, charging/discharging, filter circuits ? -->
+
+<!-- after explaning how charging/discharging works -->
+Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity flows through the capacitor.
 
 <img src="https://cdn-shop.adafruit.com/970x728/1589-02.jpg" width=300 alt="real capacitor example" />
 
@@ -181,9 +208,10 @@ This is a breakdown of all the steps in the rectification process:
 # Resources
 
 - [csl.cornell.edu/courses/ece2300](https://www.csl.cornell.edu/courses/ece2300/readings.html)
-- [learn.sparkfun.com (physics of electricity)](https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all)
 - "Digital Design and Computer Architecture, RISC-V Edition," by D. M. Harris and S. L. Harris (Morgan Kaufmann, 2021)
 - [Making logic gates from transistors - YouTube](https://youtu.be/sTu3LwpF6XI)
+- [learn.sparkfun.com (physics of electricity)](https://learn.sparkfun.com/tutorials/voltage-current-resistance-and-ohms-law/all)
+- [fluke.com/blog/electrical/diode (what is a diode)](https://www.fluke.com/en-us/learn/blog/electrical/what-is-a-diode)
 
 ---
 
