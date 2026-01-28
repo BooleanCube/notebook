@@ -161,39 +161,73 @@ Even though diodes block current with reverse bias, if the reverse voltage is hi
 
 ### Capacitors
 
-<!--  TODO: define capacitor and capacitance, explain how it works, and then construct it, also explain the process of charging and discharging capacitors
-
-A **capacitor** consists of two conductors separated by an insulating dielectric.
-A dielectric is an electrical insulator that supports an electrical field by becoming polarized, meaning its charges shift slightly but don't flow as current, which allows it to store energy.
-When a voltage `V` is applied to one of the conductors, the conductor accumulates electric charge `Q` and the other conductor accumulates the opposite charge `-Q` because of the shift in charge within the dielectric.
-When an electric field is applied, positive charges shift slightly toward the negative plate, and negative charges shift toward the positive plate, create an internal field that opposes the external one.
-That is why the opposite plate accumulates the opposite charge. The capacitance `C` of the capacitor is the ratio of charge to voltage: `C = Q/V`.
-The capacitance is proportional to the size of the conductors and inversely proportional the distance between them.
-Capacitance is important because charging or discharging a conductor takes time and energy.
-More capacitance means that a circuit will be slower and require more energy to operate.
--->
-
 A **capacitor** is an electrical circuit component that temporarily lets current flow through and temporarily stores electrical energy (like a battery).
 It contains two conductive plates separated by an insulating dielectric.
-A dielectric is an electrical insulator (glass, ceramic, plastic, etc) that supports an electrical field by becoming polarized, meaning its charges shift slightly but not enough for current to flow.
+A dielectric is an electrical insulator (glass, ceramic, plastic, etc) that supports an electrical field by becoming polarized, meaning its charges shift slightly but doesn't allow for current to flow.
 This layer is essential, as it allows a voltage to develop across the plates by holding an electric charge instead of letting current flow between them.
 
 When a voltage is applied and electrons gather on a plate, positive charges in the dielectric shift slightly toward the negatively-charged plate, negative charges shift the other way, creating an internal field that supports the external one. This process is called polarization.
 The dielectric supports the electrical field being created between the conductive plates (positive and negative) and makes the field strong enough to hold the charges in the plate and store electrical energy.
 
-<!-- DC vs AC for capcitor, capacitance, charging/discharging, filter circuits (applications of capacitors in AC circuits) ? -->
+In simple terms, the capacitance of a capacitor is the measure of capacitor's ability to store electrical charge onto its plates.
+The ratio of stored charge `Q` to the applied voltage `V` gives the capacitance `C`: `C = Q / V`.
+It is slightly unintuitive at first, but once you realize that charge and voltage are completely unrelated, capacitance starts to make more sense.
+When a voltage `V` is applied to one of the conductors, the conductor accumulates electric charge `Q` and the other conductor accumulates the opposite charge `-Q`.
+While we often describe the charge as being held on the plates, the energy is more accurately stored in the electric field between them.
+As current flows into the capacitor, the field strengthens, and as it discharges, the field weakens, releasing the stored energy back into the circuit.
+
+Capacitance, measured in Farads (F), depends on several factors: the area of the conductive plates, the thickness and type of dielectric material, and the separation distance between the plates.
+A larger plate area or smaller distance gap between them increases capacitance, allowing the capacitor to store more charge at a given voltage.
+To show how these variables are related, you can also measure the capacitance of a capacitor using this formula: `C = 𝜀 * (A / d)`.
+`𝜀` represents the permittivity (ability to store electrical energy in an electric field) of the dielectric material, `A` represents the area of the conductive plate, and `d` represents the distance between them.
+1 Farad means the capacitor can hold 1 Coulomb of charge across a potential difference of 1 Volt.
+You will more commonly see capacitors measured in pico-farads (pF), nano-farads (nF) or micro-farads (μF).
+
+Before I begin explaining how charging and discharging a capacitor works, I want to explain how circuits actually work with capacitors since they are physically open circuits.
+Both conductive plates within the capacitor have a bunch of free electrons roaming around much like the copper wire of any circuit.
+Initially, when the capacitor is fully discharged, the charges of these plates are equal and no energy or charge is stored yet.
+Once you start charging the capacitor, free electrons start to build up on one of the plates, drawing positive charge from the dielectric toward it and pushing the negative charge within the dielectric away.
+This strengthens an electrical field around the capacitor which ends up building enough force to push the electrons of the other plate out.
+This creates the illusion of current "flowing through" the capacitor even though there are no electrons passing through the capacitor because of the insulator between the plates.
+
+![capacitorcircuit](https://i.imgur.com/QF97Qta.png)
+
+The circuit below contains a capacitor (`C`) in series with a resistor (`R`), both connected to a battery power supply (`V_s`) through a mechanical switch.
+At the instant the switch is closed, the capacitor starts charging up through the resistor.
+This charging process continues until the capacitor's voltage is equal to the battery supply's voltage.
+
+![rccircuit](https://florisera.com/wp-content/uploads/2024/10/charging-circuit.avif)
+
+As the capacitor starts charging, charge builds up on its plates, creating an increasing voltage `V_c` that opposes the battery voltage `V_s`.
+This opposition reduces the current slowly as the voltage `V_c` approaches `V_s`, resulting in exponential decrease in current over time.
+
+This charging behavior follows a time constant represented by: `𝜏 = RC`.
+`R` represents the resistance of the circuit in Ohms, and `C` represents the capacitance of the circuit in Farads.
+The time constant `𝜏` represents the time required for the capacitor to reach ~63% of its full charge potential.
+The value of `𝜏` depends on the resistance `R` and capacitance `C`: a larger `R` slows the charging rate, while a larger `C` allows the capacitor to hold more charge, also requiring more time to reach full charge.
+
+As time progresses, the voltage across the capacitor follows an exponential curve, increasing quickly at first but slowly as it approaches `V_s`.
+At around `5𝜏`, the capacitor voltage `V_c` has essentially reached `V_s`, and we consider it fully charged.
+At this point, known as the Steady State Period, the capacitor behaves like an open circuit, holding the fully supply of voltage across it, while current falls to 0, and the total charge reaches `Q = CV`.
+The stored charge will forever stay in the capacitor and won't be lost until connected to another circuit. However, capacitors do leak charge in practice.
+Note that theoretically, the capacitor never actually reaches 100% of its full charging potential.
+Even after `5𝜏`, the capacitor only reaches 99.3%, but for all practical purposes, we can consider that capacitor fully charged at this point, as there is hardly any change after this.
+
+![vcvstime](https://florisera.com/wp-content/uploads/2024/10/RC-Charging-circuit.avif)
+
+Now, imagine a circuit with a capacitor and a bulb connected in parallel powered by a battery power supply through a mechanical switch.
+When we close the switch, current flows through the circuit and charges up the capacitor and lights the bulb in parallel.
+If we let the capacitor charge for a while and then open the switch, you can see that the bulb actually stays lit since the capacitor immediately starts discharging and releases its charge back into the circuit.
+The bulb will stay lit until the capacitor is done discharging, meaning it is back to its default state and the plates have an equal charge again.
+If we mimic a pulsating DC by repeatedly flipping the mechanical switch of the circuit, the bulb will stay lit all the time because it is being powered by the battery when the switch is closed and being powered by the capacitor when the switch is open.
+This demonstrates how a capacitor can smoothen out the ripples that can appear while converting AC to DC.
 
 While a capacitor is placed in a DC circuit, it charges up to match the supply voltage, and once charged, it effectively blocks the flow of current.
-In an AC circuit, however, the capacitor behaves differently.
-Since AC constantly changes direction, the capacitor repeatedly charges and discharges, creating an effect that lets AC current "pass through" the capacitor.
-I will talk more about the charging/discharging process and the applications of capacitors in AC circuits soon.
+In an AC circuit however, the capacitor behaves differently.
+Since AC consistently changes direction, the capacitor repeatedly charges and discharges, creating an effect that lets AC current "pass through" the capacitor.
 
-![capacitorciruit](https://i.imgur.com/QF97Qta.png)
-
-<!-- after explaning how charging/discharging works -->
-Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity flows through the capacitor.
-
-<img src="https://cdn-shop.adafruit.com/970x728/1589-02.jpg" width=300 alt="real capacitor example" />
+![dischargingexample](https://i.imgur.com/8VtYd7e.png) <br>
+Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity "flows through" the capacitor.
 
 ### Current Rectification
 
