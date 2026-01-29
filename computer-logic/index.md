@@ -79,6 +79,34 @@ Batteries are designed to provide a specific amount of voltage, and while bulbs 
 Rather, voltage is supplied to it from the electrical system for it to function, converting that electrical energy into light and heat.
 Voltage is the "push" that makes current flow through the bulb's filament or LED, causing it to light up.
 
+## Voltage Intuition
+
+I feel like even with these definitions of voltage as a potential difference, it is not very intuitive how exactly it works within circuits.
+After many many days of searching for answers I found some analogies that finally make sense and I wanted to share.
+
+In a standard single-loop circuit (like a series of Christmas lights), voltage is "spent" as current flows through resistive components.
+In the real world, even the copper wire acts as a resistor, though super weak.
+While we often pretend wires are perfect conductors in circuit diagrams (0 Ohms), physically, copper is not a super conductor.
+It resists the flow of electrons slightly, which causes a slight loss of energy (voltage) as the current travels from one end to the other.
+Copper atoms vibrate, and in doing so collide with moving electrons. Every collision loses a bit of energy to heat or other forms. This loss of energy manifests a slight Voltage drop.
+If you run electricity through a long distance wire, the resistance can add up over time, and reduce the voltage received on the other end.
+
+I want to use a ski slope as an analogy to explain how voltage works in a single-loop circuit.
+Imagine the battery as a ski lift taking you to the top of the mountain (10V).
+Every resistor or light bulb represents a slope, and as you ski down a slope, you lose height.
+At the very top of the mountain, let's say you are at 10V. After the first resistor, you could be measured at 7V. After the second resistor, you might be at 3V.
+And at the bottom of the mountain, you are measured at 0V.
+In this analogy, voltage represents the height difference between you and the **ground**.
+This concept of **GND** can also be commonly found within most circuit diagrams and it represents the point of lowest voltage in the entire circuit (0 V, end of the flow of current).
+
+When a wire splits into two or more branches, the voltage across each branch is the exact same.
+All branches connect to the same split point, and reunion point, therefore the potential difference must be the identical.
+Think of it as a river flowing downhill. The stream hits an island and splits into 2 streams: Stream A is wide and clear, Stream B is narrow and rocky.
+The river splits into 2 streams that both start at the same height and both streams merge again at the same height too.
+Using this analogy, the drop in height (voltage) for both streams should be equal since they have the same starting and finishing elevation, even though one stream might carry much more water (current).
+
+Using height to visualize voltage and gravity to visualize the pressure of voltage, made voltage extremely more intuitive for me.
+
 ## Ohm's Law
 
 To further explain the relationship between voltage, current, and resistance: <br>
@@ -243,6 +271,8 @@ This is a breakdown of all the steps in the rectification process:
     - **Full-wave rectification**: Uses four diodes to flip the negative half of the wave, making it positive, creating a smoother, but still bumpy, DC output.
 3. **Filter (Capacitor)**: A capacitor charges up during the peaks of the pulsating DC and discharges during the dips, smoothing out the ripples and creating a steadier DC.
 4. **Voltage Regulator**: The regulator ensures a precise, constant DC voltage by compensating for any remaining fluctuations, providing the stable power needed for sensitive electronics.
+
+## nMOS and pMOS Transistors
 
 ---
 
