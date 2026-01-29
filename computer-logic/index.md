@@ -104,6 +104,7 @@ All branches connect to the same split point, and reunion point, therefore the p
 Think of it as a river flowing downhill. The stream hits an island and splits into 2 streams: Stream A is wide and clear, Stream B is narrow and rocky.
 The river splits into 2 streams that both start at the same height and both streams merge again at the same height too.
 Using this analogy, the drop in height (voltage) for both streams should be equal since they have the same starting and finishing elevation, even though one stream might carry much more water (current).
+No matter how many slopes (resistors) a stream (parallel path) may encounter on the hill, it will drop the same height (voltage) as the other stream (other parallel path).
 
 Using height to visualize voltage and gravity to visualize the pressure of voltage, made voltage extremely more intuitive for me.
 
@@ -224,7 +225,7 @@ The circuit below contains a capacitor (`C`) in series with a resistor (`R`), bo
 At the instant the switch is closed, the capacitor starts charging up through the resistor.
 This charging process continues until the capacitor's voltage is equal to the battery supply's voltage.
 
-![rccircuit](https://florisera.com/wp-content/uploads/2024/10/charging-circuit.avif)
+![rccircuit](https://i.imgur.com/LIfrOXz.png)
 
 As the capacitor starts charging, charge builds up on its plates, creating an increasing voltage `V_c` that opposes the battery voltage `V_s`.
 This opposition reduces the current slowly as the voltage `V_c` approaches `V_s`, resulting in exponential decrease in current over time.
@@ -241,7 +242,7 @@ The stored charge will forever stay in the capacitor and won't be lost until con
 Note that theoretically, the capacitor never actually reaches 100% of its full charging potential.
 Even after `5𝜏`, the capacitor only reaches 99.3%, but for all practical purposes, we can consider that capacitor fully charged at this point, as there is hardly any change after this.
 
-![vcvstime](https://florisera.com/wp-content/uploads/2024/10/RC-Charging-circuit.avif)
+![vcvstime](https://i.imgur.com/MUxUUPf.png)
 
 Now, imagine a circuit with a capacitor and a bulb connected in parallel powered by a battery power supply through a mechanical switch.
 When we close the switch, current flows through the circuit and charges up the capacitor and lights the bulb in parallel.
