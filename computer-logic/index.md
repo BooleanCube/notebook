@@ -45,6 +45,8 @@ However, digital circuits are much simpler to design.
 By limiting ourselves to digital circuits, we can easily combine components into sophisticated systems that ultimately outperform those built from analog components in many applications.
 Like how, digital televisions and cell phones are replacing their analog predecessors.
 
+---
+
 # 1. Physics Behind Electricity
 
 When beginning to explore the world of computers, it is vital to start by understanding the basics of electricity and charge.
@@ -143,7 +145,17 @@ To understand how these switches work, we must look at the underlying materials 
 
 ### Semiconductors
 
-A **semiconductor** is a material that can act as both a conductor (like copper) and an insulator (like rubber) under the right conditions.
+![conductivity](https://i.imgur.com/Et6rtVd.png)
+
+An atom contains a nucleus of protons, surrounded by several orbital shells that contain a maximum amount of electrons.
+The outermost orbital shell called the valence shell holds electrons with the most energy.
+The electrons are held in place by the nucleus, however there's another shell called the conduction band.
+If an electron can reach it, it can break free from the valence shell and move to another atom.
+With a metal conductor like copper, the conduction band and valence shell overlap so it is very easy for the electron in the valence shell to move around freely.
+Insulators, have a valence shell which is packed and the conduction band is too far away to conduct electricity.
+In **semiconductors**, there is one too many electrons in the valence shell (4 electrons) so they act as insulators.
+But since the conduction band is close, if we provide some external energy, some electrons can gain enough energy to reach the conduction band and break free of the atom.
+
 Basically, a semiconductor materials ability to conduct electricity can be precisely controlled by adding impurities (doping) or applying voltage, light, or heat.
 These semiconductor materials form the basis for transistors, diodes, and microchips that power modern electronics.
 
@@ -173,13 +185,16 @@ When the voltage on the anode rises above the voltage on the cathode, the diode 
 But when the anode voltage is lower than the voltage on the cathode, the diode is reverse biased, and no current flows.
 
 When a PN junction diode is formed, a depletion region is forms at the junction.
-The depletion region of the diode is an insulating area at the PN junction, void of free charge carriers, where the holes from the p-type region have been filled by the free electrons from the n-type region.
-The accumulated positive ions (N-side) and negative ions (P-side) create an electric field, also known as the potential barrier, that stops further diffusion (current).
+The depletion region of the diode is an insulating area at the PN junction, where the holes from the p-type region have been filled by the free electrons from the n-type region.
+Now, the diagrams are very misleading and make it seem like some holes are moving into the n-type region which is not true.
+Only the free electrons in the n-type region seep into the p-type region and fill the holes and the n-type region remains unchanged.
+This makes the atoms within the depletion region near the p-type region negatively charged which in turn creates an electric field, as known as the potential barrier.
+The potential barrier repels electrons from flowing through because of the potential difference created by the electric field, until a higher voltage is applied.
 When you apply a forward bias (positive to P-side, negative to N-side), electrons flow into the n-type region of the diode adding more free electrons to the mix.
 This, in turn, narrows the depletion region (voltage pushes the electrons towards the P-side breaking the potential barrier), allowing current to flow through the diode.
 However, when you apply a reverse bias (positive to N-side, negative to P-side), electrons flow into the p-type region of the diode filling the holes within the material.
 This ends up having the opposite effect and widens the depletion region (carriers are pulled towards the P-side and free electrons pushed towards the N-side), fully stopping current from flowing through.
-Here is a quick [short-form video](https://www.youtube.com/shorts/IEUlctOo0cI) to help visualize and understand the physics behind a diode.
+Here is a quick [video](https://youtu.be/Fwj_d3uO5g8) to help visualize and understand the physics behind a diode.
 
 Diodes don't always allow current to flow in forward bias though.
 A silicon diode requires a specific minimum voltage (known as the forward voltage drop ~ 0.6-1.0 V) to overcome its potential barrier before conducting electricity, after which current increases exponentially.
@@ -212,6 +227,8 @@ To show how these variables are related, you can also measure the capacitance of
 1 Farad means the capacitor can hold 1 Coulomb of charge across a potential difference of 1 Volt.
 You will more commonly see capacitors measured in pico-farads (pF), nano-farads (nF) or micro-farads (μF).
 
+![capacitorcircuit](https://i.imgur.com/QF97Qta.png)
+
 Before I begin explaining how charging and discharging a capacitor works, I want to explain how circuits actually work with capacitors since they are physically open circuits.
 Both conductive plates within the capacitor have a bunch of free electrons roaming around much like the copper wire of any circuit.
 Initially, when the capacitor is fully discharged, the charges of these plates are equal and no energy or charge is stored yet.
@@ -219,13 +236,13 @@ Once you start charging the capacitor, free electrons start to build up on one o
 This strengthens an electrical field around the capacitor which ends up building enough force to push the electrons of the other plate out.
 This creates the illusion of current "flowing through" the capacitor even though there are no electrons passing through the capacitor because of the insulator between the plates.
 
-![capacitorcircuit](https://i.imgur.com/QF97Qta.png)
+![rccircuit](https://i.imgur.com/LIfrOXz.png)
 
-The circuit below contains a capacitor (`C`) in series with a resistor (`R`), both connected to a battery power supply (`V_s`) through a mechanical switch.
+The circuit above contains a capacitor (`C`) in series with a resistor (`R`), both connected to a battery power supply (`V_s`) through a mechanical switch.
 At the instant the switch is closed, the capacitor starts charging up through the resistor.
 This charging process continues until the capacitor's voltage is equal to the battery supply's voltage.
 
-![rccircuit](https://i.imgur.com/LIfrOXz.png)
+![vcvstime](https://i.imgur.com/MUxUUPf.png)
 
 As the capacitor starts charging, charge builds up on its plates, creating an increasing voltage `V_c` that opposes the battery voltage `V_s`.
 This opposition reduces the current slowly as the voltage `V_c` approaches `V_s`, resulting in exponential decrease in current over time.
@@ -242,20 +259,19 @@ The stored charge will forever stay in the capacitor and won't be lost until con
 Note that theoretically, the capacitor never actually reaches 100% of its full charging potential.
 Even after `5𝜏`, the capacitor only reaches 99.3%, but for all practical purposes, we can consider that capacitor fully charged at this point, as there is hardly any change after this.
 
-![vcvstime](https://i.imgur.com/MUxUUPf.png)
+![dischargingexample](https://i.imgur.com/8VtYd7e.png)
 
-Now, imagine a circuit with a capacitor and a bulb connected in parallel powered by a battery power supply through a mechanical switch.
+Now, take the circuit above with a capacitor and a bulb connected in parallel powered by a battery power supply through a mechanical switch.
 When we close the switch, current flows through the circuit and charges up the capacitor and lights the bulb in parallel.
 If we let the capacitor charge for a while and then open the switch, you can see that the bulb actually stays lit since the capacitor immediately starts discharging and releases its charge back into the circuit.
 The bulb will stay lit until the capacitor is done discharging, meaning it is back to its default state and the plates have an equal charge again.
 If we mimic a pulsating DC by repeatedly flipping the mechanical switch of the circuit, the bulb will stay lit all the time because it is being powered by the battery when the switch is closed and being powered by the capacitor when the switch is open.
 This demonstrates how a capacitor can smoothen out the ripples that can appear while converting AC to DC.
 
-While a capacitor is placed in a DC circuit, it charges up to match the supply voltage, and once charged, it effectively blocks the flow of current.
+Additionally, while a capacitor is placed in a DC circuit, it charges up to match the supply voltage, and once charged, it effectively blocks the flow of current.
 In an AC circuit however, the capacitor behaves differently.
 Since AC consistently changes direction, the capacitor repeatedly charges and discharges, creating an effect that lets AC current "pass through" the capacitor.
 
-![dischargingexample](https://i.imgur.com/8VtYd7e.png) <br>
 Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity "flows through" the capacitor.
 
 ### Current Rectification
@@ -274,6 +290,60 @@ This is a breakdown of all the steps in the rectification process:
 4. **Voltage Regulator**: The regulator ensures a precise, constant DC voltage by compensating for any remaining fluctuations, providing the stable power needed for sensitive electronics.
 
 ## nMOS and pMOS Transistors
+
+MOSFETs are kind of like sandwiches that consist of layers of conductive and insulating materials. These MOSFETs are built on thin and flat **wafers** like most modern electronics.
+A wafer is a thin slice of semiconductor material, typically high-purity crystalline silicon, used as the substrate for fabricating integrating circuits (chips) in electronics.
+These thin, usually circular discs (15 - 30 cm in diameter) serve as the foundational base upon which microelectronic devices are manufactured through processes like doping, etching, and deposition.
+
+The manufacturing process of a MOSFET obviously begins with a bare wafer, and then involves a sequence of steps in which dopants are implanted into the silicon, thin films of silicon dioxide and silicon are grown, and metal is deposited.
+Between each step, the wafer is carefully and precisely patterned by very accurate and advanced laser technology so that the materials appear exactly where they are desired.
+Since transistors are literally a fraction of a micron (1e-6 m) in length, an entire wafer is processed at once.
+Once the processing is complete, the wafer is cut into tiny rectangles called **chips** containing millions or billions of transistors.
+These chips are first tested, and then placed in a plastic or ceramic package with metal pins on the bottom to connect them to circuit boards.
+
+<img src="https://i.imgur.com/mTtlJpJ.png" alt="irlwafer" width=400 />
+
+Specifically, MOSFET sandwiches consist of 3 main layers: a conductive layer on the top called the gate, an insulating dielectric layer of silicon dioxide (`SiO_2`) in the middle, and the silicon wafer called the substrate on the bottom.
+Historically, the gate was constructed from metal, hence the name metal-oxide-semiconductor, however, modern manufacturing processes use polycrystalline silicon for the gate because it doesn't melt during some of the following high-temperature processing steps.
+If you were wondering, silicon dioxide is basically just glass and also often simply called *oxide* in the semiconductor industry.
+
+![nmosandpmos](https://i.imgur.com/5bn2gNE.png)
+
+As shown by the figure above, there are two flavors of MOSFETs: nMOS and pMOS. The figure illustrates the cross section of the nMOS and pMOS from the side.
+The n-type transistors, also known as nMOS, have 2 separate regions of n-type dopants neighbouring the gate (called the **source** and **drain**) that were planted onto a p-type semiconductor substrate base.
+The pMOS transistors are just the opposite, consisting of a p-type source and drain regions in an n-type substrate base.
+
+Now you're probably wondering: "why are there 2 flavors of MOSFETs and what's the difference between how they function?"
+Before I get into that, I want to first dive into the nMOS transistor and how the components we learned about earlier come together to operate this transistor.
+
+<!-- TODO: uncover diodes and the science behind how it works -->
+The source and drain are both connected to a region of n-type dopant on top of the p-type substrate like shown in the diagram.
+Doesn't this sound familiar? The source and drain are both connected to tiny diodes within the transistor that by default block the flow of current.
+The PN junction from the n-type regions in the p-type substrate form a depletion region where some of the free electrons fill the holes in the p-type region and create a potential barrier.
+Quick suggestion: maybe read up on diodes again to refresh your memory because it is pretty confusing and unintuitive.
+This potential barrier in the source diode blocks current from flowing when theres no voltage, but what stops the current from flowing when there's a voltage applied to the source but not the gate?
+Remember, we only want the transistor to pass current through when there is a voltage applied to the gate as well (our switch controller).
+That's where the drain diode comes into play. Since the source diodes leak electrons into the p-type substrate, it only makes the potential barrier of the drain diode larger stopping current.
+Long story short, it would be a forward bias for the source diode, but a reverse bias for the drain diode, therefore none of the current flows through.
+Now that we realised both of the diodes are facing in opposite directions it seems impossible for current to pass through, but now I will explain how we use capacitors to make this work.
+
+<!-- TODO: explain how and why capacitors are used in transistors -->
+<!-- TODO: talk about how and why the diodes work in the nMOS and pMOS separately. need to talk about how voltage affects the MOSFETs. show image of nMOS operation -->
+If you haven't noticed already, the metal-oxide-semiconductor sandwich we manufactured earlier actually forms a capacitor. Take a look at the figure of an nMOS transistor above.
+There is a thin insulating dielectric layer (from the silicon dioxide) that separates the two conductive plates which are the polysilicon gate on top and the silicon wafer substrate on the bottom.
+A MOSFET behaves as a voltage-controlled switch in which the gate voltage with the support of the dielectric creates an electric field that turns ON or OFF a connection between the source and drain, hence the name **field effect transistor**.
+When you apply a small positive voltage to the gate, the dielectric creates an electric field that attracts electrons on the other side (wafer substrate).
+The electric field allows the electrons to overcome the repulsion of the depletion regions of both diodes and creates a channel for electrons to flow through both diodes.
+Long story short, the electric field created by the dielectric in the capacitor temporarily disables the potential barriers of the diodes allowing current to pass through freely.
+Refer to the visual below or watch the [video](https://youtu.be/IcrBqCFLHIY) (where I grabbed it from) to really understand it more intuitively.
+
+![fetdiagram](https://i.imgur.com/qhU9mNq.png)
+
+<!-- TODO: why a capactior (field effect) instead of direct voltage? -->
+
+<!-- TODO: talk about how pMOS is different from nMOS -->
+
+<!-- TODO: read and learn whats next, continue with planning -->
 
 ---
 
