@@ -99,7 +99,7 @@ Every resistor or light bulb represents a slope, and as you ski down a slope, yo
 At the very top of the mountain, let's say you are at 10V. After the first resistor, you could be measured at 7V. After the second resistor, you might be at 3V.
 And at the bottom of the mountain, you are measured at 0V.
 In this analogy, voltage represents the height difference between you and the **ground**.
-This concept of **GND** can also be commonly found within most circuit diagrams and it represents the point of lowest voltage in the entire circuit (0 V, end of the flow of current).
+This concept of **GND** (ground) can also be commonly found within most circuit diagrams and it represents the point of lowest voltage in the entire circuit (0 V, end of the flow of current).
 
 When a wire splits into two or more branches, the voltage across each branch is the exact same.
 All branches connect to the same split point, and reunion point, therefore the potential difference must be the identical.
@@ -109,6 +109,25 @@ Using this analogy, the drop in height (voltage) for both streams should be equa
 No matter how many slopes (resistors) a stream (parallel path) may encounter on the hill, it will drop the same height (voltage) as the other stream (other parallel path).
 
 Using height to visualize voltage and gravity to visualize the pressure of voltage, made voltage extremely more intuitive for me.
+
+## Pulling Voltage (Current Intuition)
+
+This is a short one, but I wanted to briefly go over this because it is important to remember.
+Now, throughout this article voltage is described as the force that "pushes" electrons (or electrical charges) throughout the circuit.
+That is actually accurate, but I would like to clarify a common misconception this creates when it comes to the flow of electrons.
+People commonly visualize the flow of electrons in a circuit as being pushed out of a power source, but this is unintuitive to understand in electricity sometimes.
+A better approach to visualize it is: to see the electrons being pulled by the ground from the power source (the other way around), like tug of war.
+This works well with the gravitational force analogy for voltage as well since gravity is a force that pulls (not pushes).
+This is more intuitive when explaining why current doesn't flow in open circuits and explaining other mistakes where current is misinterpreted/misused.
+
+I'm guessing that is why current is conventionally shown flowing from the positive terminal to the negative terminal of a battery even though the flow of electrons is in the opposite direction.
+That definitely makes it much easier to visualize electron flow.
+Also conventionally, the positive terminal of a battery actually represents a high voltage and the negative terminal represents ground.
+This might seem unintuitive at first because the positive terminal actually feels the least electrical pressure (voltage definition) to move electrons.
+When a point has a higher voltage than another point in a circuit, it basically means that it is more positive (has less electrical charge).
+This works well with the pulling perspective of current, since a point of higher voltage has a stronger pull on electrons than a point of lower voltage.
+
+So please keep this in mind throughout the article and whenever you think about current visually.
 
 ## Ohm's Law
 
@@ -161,7 +180,7 @@ These semiconductor materials form the basis for transistors, diodes, and microc
 
 CMOS technology relies on Silicon (Si), a group IV atom (so it has four electrons in its valence shell and forms bonds with four adjacent atoms) that forms a crystalline lattice.
 Pure silicon turns out to be a poor conductor, so engineers add impurities called **dopants** to alter its conductivity.
-Adding Arsenic (group V) creates **n-type** silicon, which has free negatively charged electrons.
+Adding Arsenic (group V) creates **n-type** silicon, which has free negatively charged electrons that act like negative charge carriers.
 Adding Boron (group III) creates **p-type** silicon, which has "holes" (missing electrons) that act like positive charge carriers.
 
 ![semiconductors](https://i.imgur.com/1qnjdDw.png)
@@ -184,19 +203,59 @@ The p-type region is called the anode and the n-type region is called the cathod
 When the voltage on the anode rises above the voltage on the cathode, the diode is forward biased, and current flows through the diode from the anode to the cathode.
 But when the anode voltage is lower than the voltage on the cathode, the diode is reverse biased, and no current flows.
 
-When a PN junction diode is formed, a depletion region is forms at the junction.
-The depletion region of the diode is an insulating area at the PN junction, where the holes from the p-type region have been filled by the free electrons from the n-type region.
-Now, the diagrams are very misleading and make it seem like some holes are moving into the n-type region which is not true.
-Only the free electrons in the n-type region seep into the p-type region and fill the holes and the n-type region remains unchanged.
-This makes the atoms within the depletion region near the p-type region negatively charged which in turn creates an electric field, as known as the potential barrier.
-The potential barrier repels electrons from flowing through because of the potential difference created by the electric field, until a higher voltage is applied.
-When you apply a forward bias (positive to P-side, negative to N-side), electrons flow into the n-type region of the diode adding more free electrons to the mix.
-This, in turn, narrows the depletion region (voltage pushes the electrons towards the P-side breaking the potential barrier), allowing current to flow through the diode.
-However, when you apply a reverse bias (positive to N-side, negative to P-side), electrons flow into the p-type region of the diode filling the holes within the material.
-This ends up having the opposite effect and widens the depletion region (carriers are pulled towards the P-side and free electrons pushed towards the N-side), fully stopping current from flowing through.
+The moment you join p-type and n-type material, nature tries to reach an equilibrium through a process called **diffusion**.
+Diffusion is simply the process of the high-concentration electrons from the n-type region rushing across the border to fill the "empty holes" in the p-type region.
+When an electron meets a hole at the junction, they cancel each other out and stick in place.
+
+On the n-side, you have atoms like Phosphorus with 5 valence electrons. Since they only need 4 electrons to bond, that 5th electron is free to roam.
+However, the phosphorus atom is still electrically neutral because it has 15 protons and 15 electrons.
+On the p-side, you have atoms like Boron with 3 valence electrons. They are also electrically neutral with 5 protons and 5 electrons, but they leave a "hole" in the lattice.
+
+When the junction is formed, those tightly packed free electrons from the n-side jump across to fill the holes in the p-side.
+As a result, the Phosphorus atom on the n-side just lost an electron making it a positive ion and the Boron atom on the p-side just gained an electron making it a negative ion.
+Because these atoms are locked into the solid crystal lattice, they cannot move.
+You are left with a layer of stationary positive charge near the junction on the n-side and a layer of stationary negative charge near the junction on the p-side.
+
+![pnjunction](https://i.imgur.com/cWB9QSH.png)
+
+This creates something called the **depletion region** at the PN junction, which contains no mobile charge carriers and only stationary charged ions.
+In physics, whenever you have a separation of positive and negative charges that are fixed in space, an **electric field** is automatically created, and such is the case here.
+These stationary ions near the junction create an internal electric field within the depletion region that acts like a wall, stopping any further electrons from crossing.
+The internal electric field applies a force that repels negative charges from the n-side and repels positive charges from the p-side.
+I know, the diagram above looks SO misleading and it honestly is extremely unintuitive.
+The negative and positive symbols within the depletion region represent the charge of the ions, and the other symbols in the n-side and p-side represent free electrons and holes. Two very different things.
+The electric field suggests that positive charges experience a force that pushes them towards the negatively charged p-side and negative charges experience a push towards the positively charged n-side.
+That is what the diagram actually means.
+
+Basically, this electric field creates a **potential barrier** which is simply the voltage equivalent of that field.
+For electrons to cross the junction, a voltage bigger than the potential barrier needs to be applied.
+Think of it like: the electric field is the steepness of the slope, and the voltage is the height of the hill.
+
+You might be wondering: "why don't all the electrons just cross over until all holes are filled?"
+Really, it's a balance of the two forces we talked about: diffusion and drift.
+The natural tendency for electrons to cross over to fill the holes in the p-side (diffusion) and the repulsive force from the potential barrier (drift).
+The depletion region stops growing the exact moment the electric field becomes strong enough to counteract the force of diffusion.
+This state is known as equilibrium.
+
+Before I dive into forward and reverse bias of a diode, I strongly recommend you to refresh your memory of the current intuition I explained earlier and really ingrain that pulling perspective of current.
+When you apply a **forward bias** to a diode, you connect the positive terminal (high voltage) to the p-side and the negative terminal (or ground) to the n-side.
+In turn, electrons are pulled away from the p-side (pushed into n-side), breaking the equilibrium, overcoming the voltage produced by the potential barrier, squashing the depletion region and allowing current to flow through.
+However, when you apply a **reverse bias**, you connect the positive terminal (high voltage) to the n-side and the negative terminal (or ground) to the p-side.
+This results in electrons being pulled away from the n-side junction, and in consequence pushes holes away from the p-side junction (widening the depletion region).
+Since the free electrons (negative charge carriers) are pulled away from the junction, and empty holes (positive charge carriers) are pushed away from the junction, we are left with a wider depletion region at the junction of the diode filled with ions which strengthen the electric field and potential barrier even more.
+So, a reverse biased diode acts as a strong insulator with very microscopic leakage of current.
+
+Quick tangent to make sure you understand! In forward biased diodes, we can say "electrons are pulled from the p-side and pushed into the n-side of the diodes."
+We can say this because current flows through diodes in forward bias, however, it is not the case for reverse biased diodes.
+In reverse biased diodes, electrons feel a pulling force from the n-side which attract the electrons away from the junction.
+This causes holes to be pushed away from the junction as well which causes the widening of the depletion region, blocking current.
+However, there are no electrons being pushed into the p-side of the diode because the electron tug of war ends at the PN junction of the diode.
+Revisit my notes on current intuition (find in table of contents) if you don't understand what I am trying to get at here.
+
+All of that combined together should intuitively explain the exact science behind how diodes act as one-way valves for current.
 Here is a quick [video](https://youtu.be/Fwj_d3uO5g8) to help visualize and understand the physics behind a diode.
 
-Diodes don't always allow current to flow in forward bias though.
+Quick note! Diodes don't always allow current to flow in forward bias though.
 A silicon diode requires a specific minimum voltage (known as the forward voltage drop ~ 0.6-1.0 V) to overcome its potential barrier before conducting electricity, after which current increases exponentially.
 Even though diodes block current with reverse bias, if the reverse voltage is high enough (exceeding the diode's reverse breakdown voltage), it will conduct, but this usually causes permanent failure.
 
@@ -210,12 +269,10 @@ It contains two conductive plates separated by an insulating dielectric.
 A dielectric is an electrical insulator (glass, ceramic, plastic, etc) that supports an electrical field by becoming polarized, meaning its charges shift slightly but doesn't allow for current to flow.
 This layer is essential, as it allows a voltage to develop across the plates by holding an electric charge instead of letting current flow between them.
 
-When a voltage is applied and electrons gather on a plate, positive charges in the dielectric shift slightly toward the negatively-charged plate, negative charges shift the other way, creating an internal field that supports the external one. This process is called polarization.
-The dielectric supports the electrical field being created between the conductive plates (positive and negative) and makes the field strong enough to hold the charges in the plate and store electrical energy.
-
 In simple terms, the capacitance of a capacitor is the measure of capacitor's ability to store electrical charge onto its plates.
 The ratio of stored charge `Q` to the applied voltage `V` gives the capacitance `C`: `C = Q / V`.
-It is slightly unintuitive at first, but once you realize that charge and voltage are completely unrelated, capacitance starts to make more sense.
+It is slightly unintuitive at first, but once you realize that charge and voltage are completely separate, capacitance starts to make more sense.
+Think of it like: a bucket’s size (Capacitance) is independent of how much water (Charge) is in it or how much pressure (Voltage) is at the bottom.
 When a voltage `V` is applied to one of the conductors, the conductor accumulates electric charge `Q` and the other conductor accumulates the opposite charge `-Q`.
 While we often describe the charge as being held on the plates, the energy is more accurately stored in the electric field between them.
 As current flows into the capacitor, the field strengthens, and as it discharges, the field weakens, releasing the stored energy back into the circuit.
@@ -227,14 +284,22 @@ To show how these variables are related, you can also measure the capacitance of
 1 Farad means the capacitor can hold 1 Coulomb of charge across a potential difference of 1 Volt.
 You will more commonly see capacitors measured in pico-farads (pF), nano-farads (nF) or micro-farads (μF).
 
+When a voltage is applied and electrons gather on a plate, the dielectric becomes positively charged near the negatively charged plate and vice versa. This process is called polarization.
+The dielectric is influenced by the surrounding conductive plates to have a shift in its electron cloud which creates a tiny internal electric field.
+The two oppositely charged conductive plates separated by the dielectric also begin to form a larger external electric field.
+The dielectric not only helps as an insulator between the plates but also uses its internal field to oppose the external field of the plates.
+It's important to note that this is an intended feature of the dielectric because it helps slow the growth of the opposing voltage from the external field, which in turn increases the capacitance of the capacitor.
+The external electric field is strong enough to hold the charges in these plates until connected to another circuit to discharge the capacitor.
+
 ![capacitorcircuit](https://i.imgur.com/QF97Qta.png)
 
 Before I begin explaining how charging and discharging a capacitor works, I want to explain how circuits actually work with capacitors since they are physically open circuits.
-Both conductive plates within the capacitor have a bunch of free electrons roaming around much like the copper wire of any circuit.
-Initially, when the capacitor is fully discharged, the charges of these plates are equal and no energy or charge is stored yet.
-Once you start charging the capacitor, free electrons start to build up on one of the plates, drawing positive charge from the dielectric toward it and pushing the negative charge within the dielectric away.
-This strengthens an electrical field around the capacitor which ends up building enough force to push the electrons of the other plate out.
+Both conductive plates within the capacitor have a bunch of electrons randomly roaming around much like the copper wire of any circuit.
+Initially, when the capacitor is fully discharged, the plates are both electrically neutral and no energy or charge is stored yet.
+Once you start charging the capacitor, electrons start to build up on one of the plates, drawing positive charge from the dielectric toward it and pushing the negative charge within the dielectric away.
+This forms an electrical field around the capacitor which begins to push the electrons of the other plate out.
 This creates the illusion of current "flowing through" the capacitor even though there are no electrons passing through the capacitor because of the insulator between the plates.
+It is important to note that positive charges (protons) don't move since all the atoms are tethered in the solid dielectric, it is just the shifting electron clouds that create dipoles in the dielectric.
 
 ![rccircuit](https://i.imgur.com/LIfrOXz.png)
 
@@ -304,8 +369,8 @@ These chips are first tested, and then placed in a plastic or ceramic package wi
 <img src="https://i.imgur.com/mTtlJpJ.png" alt="irlwafer" width=400 />
 
 Specifically, MOSFET sandwiches consist of 3 main layers: a conductive layer on the top called the gate, an insulating dielectric layer of silicon dioxide (`SiO_2`) in the middle, and the silicon wafer called the substrate on the bottom.
-Historically, the gate was constructed from metal, hence the name metal-oxide-semiconductor, however, modern manufacturing processes use polycrystalline silicon for the gate because it doesn't melt during some of the following high-temperature processing steps.
 If you were wondering, silicon dioxide is basically just glass and also often simply called *oxide* in the semiconductor industry.
+Historically, the gate was constructed from metal, hence the name metal-oxide-semiconductor, however, modern manufacturing processes use polycrystalline silicon for the gate because it doesn't melt during some of the following high-temperature processing steps.
 
 ![nmosandpmos](https://i.imgur.com/5bn2gNE.png)
 
@@ -316,7 +381,8 @@ The pMOS transistors are just the opposite, consisting of a p-type source and dr
 Now you're probably wondering: "why are there 2 flavors of MOSFETs and what's the difference between how they function?"
 Before I get into that, I want to first dive into the nMOS transistor and how the components we learned about earlier come together to operate this transistor.
 
-<!-- TODO: uncover diodes and the science behind how it works -->
+<!-- TODO: fix opposing diodes logic that is entirely wrong -->
+<!-- TODO: tiny correction of source and drain connectivity -->
 The source and drain are both connected to a region of n-type dopant on top of the p-type substrate like shown in the diagram.
 Doesn't this sound familiar? The source and drain are both connected to tiny diodes within the transistor that by default block the flow of current.
 The PN junction from the n-type regions in the p-type substrate form a depletion region where some of the free electrons fill the holes in the p-type region and create a potential barrier.
@@ -327,23 +393,29 @@ That's where the drain diode comes into play. Since the source diodes leak elect
 Long story short, it would be a forward bias for the source diode, but a reverse bias for the drain diode, therefore none of the current flows through.
 Now that we realised both of the diodes are facing in opposite directions it seems impossible for current to pass through, but now I will explain how we use capacitors to make this work.
 
-<!-- TODO: explain how and why capacitors are used in transistors -->
-<!-- TODO: talk about how and why the diodes work in the nMOS and pMOS separately. need to talk about how voltage affects the MOSFETs. show image of nMOS operation -->
+<!-- TODO: show image of nMOS operation, how the channel actually works -->
 If you haven't noticed already, the metal-oxide-semiconductor sandwich we manufactured earlier actually forms a capacitor. Take a look at the figure of an nMOS transistor above.
 There is a thin insulating dielectric layer (from the silicon dioxide) that separates the two conductive plates which are the polysilicon gate on top and the silicon wafer substrate on the bottom.
 A MOSFET behaves as a voltage-controlled switch in which the gate voltage with the support of the dielectric creates an electric field that turns ON or OFF a connection between the source and drain, hence the name **field effect transistor**.
 When you apply a small positive voltage to the gate, the dielectric creates an electric field that attracts electrons on the other side (wafer substrate).
 The electric field allows the electrons to overcome the repulsion of the depletion regions of both diodes and creates a channel for electrons to flow through both diodes.
+This channel is also known as the inversion layer because it temporarily inverts the top of the p-type substrate into an n-type region to allow the flow of electrons.
 Long story short, the electric field created by the dielectric in the capacitor temporarily disables the potential barriers of the diodes allowing current to pass through freely.
 Refer to the visual below or watch the [video](https://youtu.be/IcrBqCFLHIY) (where I grabbed it from) to really understand it more intuitively.
 
 ![fetdiagram](https://i.imgur.com/qhU9mNq.png)
 
-<!-- TODO: why a capactior (field effect) instead of direct voltage? -->
+<!-- TODO: what happens to the charge in the gate of the capacitor? REVISIT AFTER ALL OTHER FIXES -->
+You might also be wondering: if the MOSFET uses the physical structure of a capacitor, does the gate also charge up when a positive voltage is applied and does it store the charge accumulated?
+The answer is YES, the gate actually does start "charging" when a positive voltage is applied to it and stores the charge even when the voltage is disabled.
+This brings up some problems because the transistor is considered ON as long as the electric field exists.
+Meaning, even if the gate has no voltage applied to it, if it has stored charge keeping the electric field alive, the transistor is still allowing current to pass through.
+To actually turn the transistor OFF, the circuit must provide a path for the electrons to leave the gate.
+To solve this problem, the substrate of an nMOS transistor is normally tied to GND, the lowest voltage in the system.
 
 <!-- TODO: talk about how pMOS is different from nMOS -->
 
-<!-- TODO: read and learn whats next, continue with planning -->
+<!-- TODO: rename note metadata, refactor introduction a bit, rename note titles, rename git branch, change everything to transistors instead of computer logic -->
 
 ---
 
