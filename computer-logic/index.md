@@ -110,13 +110,14 @@ No matter how many slopes (resistors) a stream (parallel path) may encounter on 
 
 Using height to visualize voltage and gravity to visualize the pressure of voltage, made voltage extremely more intuitive for me.
 
-## Pulling Voltage (Current Intuition)
+## Pulling Voltage (Visualizing Current)
 
 This is a short one, but I wanted to briefly go over this because it is important to remember.
 Now, throughout this article voltage is described as the force that "pushes" electrons (or electrical charges) throughout the circuit.
-That is actually accurate, but I would like to clarify a common misconception this creates when it comes to the flow of electrons.
-People commonly visualize the flow of electrons in a circuit as being pushed out of a power source, but this is unintuitive to understand in electricity sometimes.
-A better approach to visualize it is: to see the electrons being pulled by the ground from the power source (the other way around), like tug of war.
+While this is actually an accurate definition for voltage, I don't like it very much because it makes visualizing voltage much more unintuitive.
+I would like to clarify a common misconception this creates when it comes to the flow of electrons.
+This definition makes people commonly visualize the flow of electrons in a circuit as being pushed out of a power source, but that is actually not how it works.
+A better approach to visualize it is: to see the electrons being pulled by the ground from the power source (the other way around), like tug of war between the electrons.
 This works well with the gravitational force analogy for voltage as well since gravity is a force that pulls (not pushes).
 This is more intuitive when explaining why current doesn't flow in open circuits and explaining other mistakes where current is misinterpreted/misused.
 
@@ -125,7 +126,7 @@ That definitely makes it much easier to visualize electron flow.
 Also conventionally, the positive terminal of a battery actually represents a high voltage and the negative terminal represents ground.
 This might seem unintuitive at first because the positive terminal actually feels the least electrical pressure (voltage definition) to move electrons.
 When a point has a higher voltage than another point in a circuit, it basically means that it is more positive (has less electrical charge).
-This works well with the pulling perspective of current, since a point of higher voltage has a stronger pull on electrons than a point of lower voltage.
+This works well with the pulling perspective of voltage, since a point of higher voltage has a stronger pull on electrons than a point of lower voltage.
 
 So please keep this in mind throughout the article and whenever you think about current visually.
 
@@ -245,12 +246,12 @@ This results in electrons being pulled away from the n-side junction, and in con
 Since the free electrons (negative charge carriers) are pulled away from the junction, and empty holes (positive charge carriers) are pushed away from the junction, we are left with a wider depletion region at the junction of the diode filled with ions which strengthen the electric field and potential barrier even more.
 So, a reverse biased diode acts as a strong insulator with very microscopic leakage of current.
 
-Quick tangent to make sure you understand! In forward biased diodes, we can say "electrons are pulled from the p-side and pushed into the n-side of the diodes."
-We can say this because current flows through diodes in forward bias, however, it is not the case for reverse biased diodes.
-In reverse biased diodes, electrons feel a pulling force from the n-side which attract the electrons away from the junction.
+Quick tangent to make sure you understand!
+In forward biased diodes, we can say "electrons are pulled from the p-side and pushed into the n-side of the diodes" because current flows through diodes in forward bias.
+However, it is not the case for reverse biased diodes. In reverse biased diodes, electrons feel a pulling force from the n-side which attract the electrons away from the junction.
 This causes holes to be pushed away from the junction as well which causes the widening of the depletion region, blocking current.
 However, there are no electrons being pushed into the p-side of the diode because the electron tug of war ends at the PN junction of the diode.
-Revisit my notes on current intuition (find in table of contents) if you don't understand what I am trying to get at here.
+Revisit my notes on visualizing current (find in table of contents) if you don't understand what I am trying to get at here.
 
 All of that combined together should intuitively explain the exact science behind how diodes act as one-way valves for current.
 Here is a quick [video](https://youtu.be/Fwj_d3uO5g8) to help visualize and understand the physics behind a diode.
@@ -371,6 +372,7 @@ These chips are first tested, and then placed in a plastic or ceramic package wi
 Specifically, MOSFET sandwiches consist of 3 main layers: a conductive layer on the top called the gate, an insulating dielectric layer of silicon dioxide (`SiO_2`) in the middle, and the silicon wafer called the substrate on the bottom.
 If you were wondering, silicon dioxide is basically just glass and also often simply called *oxide* in the semiconductor industry.
 Historically, the gate was constructed from metal, hence the name metal-oxide-semiconductor, however, modern manufacturing processes use polycrystalline silicon for the gate because it doesn't melt during some of the following high-temperature processing steps.
+The gate acts as the switch that stops and allows current to flow through the MOSFET when there is a voltage applied across the source and drain.
 
 ![nmosandpmos](https://i.imgur.com/5bn2gNE.png)
 
@@ -381,40 +383,46 @@ The pMOS transistors are just the opposite, consisting of a p-type source and dr
 Now you're probably wondering: "why are there 2 flavors of MOSFETs and what's the difference between how they function?"
 Before I get into that, I want to first dive into the nMOS transistor and how the components we learned about earlier come together to operate this transistor.
 
-<!-- TODO: fix opposing diodes logic that is entirely wrong -->
-<!-- TODO: tiny correction of source and drain connectivity -->
-The source and drain are both connected to a region of n-type dopant on top of the p-type substrate like shown in the diagram.
-Doesn't this sound familiar? The source and drain are both connected to tiny diodes within the transistor that by default block the flow of current.
-The PN junction from the n-type regions in the p-type substrate form a depletion region where some of the free electrons fill the holes in the p-type region and create a potential barrier.
-Quick suggestion: maybe read up on diodes again to refresh your memory because it is pretty confusing and unintuitive.
-This potential barrier in the source diode blocks current from flowing when theres no voltage, but what stops the current from flowing when there's a voltage applied to the source but not the gate?
-Remember, we only want the transistor to pass current through when there is a voltage applied to the gate as well (our switch controller).
-That's where the drain diode comes into play. Since the source diodes leak electrons into the p-type substrate, it only makes the potential barrier of the drain diode larger stopping current.
-Long story short, it would be a forward bias for the source diode, but a reverse bias for the drain diode, therefore none of the current flows through.
-Now that we realised both of the diodes are facing in opposite directions it seems impossible for current to pass through, but now I will explain how we use capacitors to make this work.
+The source and drain of a MOSFET are both connected to regions of n-type dopants that are embedded into the top of the p-type wafer substrate like shown in the diagram.
+Doesn't this look familiar? The n-type regions that were embedded into the p-type substrate actually create two back to back **diodes** within the MOSFET from source to body and drain to body.
+The PN junction between these regions and the substrate actually form a depletion region which blocks electrons from crossing when there is no voltage applied across the source and diode.
 
-<!-- TODO: show image of nMOS operation, how the channel actually works -->
-If you haven't noticed already, the metal-oxide-semiconductor sandwich we manufactured earlier actually forms a capacitor. Take a look at the figure of an nMOS transistor above.
+> **When the gate (the switch of the MOSFET) is OFF but there is a voltage applied across the source and drain of an nMOS, what is stopping current from flowing through?** <br><br>
+Before I begin explaining, it might be helpful to revisit how diodes work and understand the pulling voltage intuition better.
+So when the gate is electrically neutral, meaning there has been no voltage applied to it yet, but there is a voltage across the source and drain, MOSFETs block current from flowing through as designed to.
+The question is not why, but how? Think of how the electrons are moving. The voltage applied pulls the electrons from the ground which the drain is attached to.
+Basically, electrons within the drain experience a pulling force from the ground which pull electrons away from the PN junction making the depletion region wider.
+In simple terms, the current is trying to flow through a reverse biased diode which we have learned acts as an insulator, therefore blocking the current.
+This is a brief explanation as to how reverse biased diodes block current, read the notes on diodes for more in depth explanations.
+
+If you haven't noticed already, the metal-oxide-semiconductor sandwich we manufactured earlier actually forms a **capacitor**. Take a look at the figure of an nMOS transistor above.
 There is a thin insulating dielectric layer (from the silicon dioxide) that separates the two conductive plates which are the polysilicon gate on top and the silicon wafer substrate on the bottom.
 A MOSFET behaves as a voltage-controlled switch in which the gate voltage with the support of the dielectric creates an electric field that turns ON or OFF a connection between the source and drain, hence the name **field effect transistor**.
-When you apply a small positive voltage to the gate, the dielectric creates an electric field that attracts electrons on the other side (wafer substrate).
-The electric field allows the electrons to overcome the repulsion of the depletion regions of both diodes and creates a channel for electrons to flow through both diodes.
-This channel is also known as the inversion layer because it temporarily inverts the top of the p-type substrate into an n-type region to allow the flow of electrons.
-Long story short, the electric field created by the dielectric in the capacitor temporarily disables the potential barriers of the diodes allowing current to pass through freely.
-Refer to the visual below or watch the [video](https://youtu.be/IcrBqCFLHIY) (where I grabbed it from) to really understand it more intuitively.
 
 ![fetdiagram](https://i.imgur.com/qhU9mNq.png)
 
-<!-- TODO: what happens to the charge in the gate of the capacitor? REVISIT AFTER ALL OTHER FIXES -->
-You might also be wondering: if the MOSFET uses the physical structure of a capacitor, does the gate also charge up when a positive voltage is applied and does it store the charge accumulated?
-The answer is YES, the gate actually does start "charging" when a positive voltage is applied to it and stores the charge even when the voltage is disabled.
-This brings up some problems because the transistor is considered ON as long as the electric field exists.
-Meaning, even if the gate has no voltage applied to it, if it has stored charge keeping the electric field alive, the transistor is still allowing current to pass through.
-To actually turn the transistor OFF, the circuit must provide a path for the electrons to leave the gate.
-To solve this problem, the substrate of an nMOS transistor is normally tied to GND, the lowest voltage in the system.
+> **How does an nMOS allow current flow through the source and drain when the gate is ON?** <br><br>
+By applying a positive voltage to the gate, the power source (like a battery) is effectively sucking electrons out of the gate material, making the gate positively charged.
+Since the gate is now positively charged and the dielectric is an insulator, those "missing" electrons can't be replaced by the substrate below, instead creating a static electric field.
+The electric field becomes strong enough for the positively charged gate to act like a magnet for negative charges, pulling the free electrons in the p-type substrate towards the gate, and pushing the holes away.
+Since the electric field pulled the free electrons in the p-type substrate, it temporarily disables the depletion layers at the PN junctions.
+As those electrons pile up against the bottom of the dielectric, they form a thin but highly concentrated layer of negative charge called the **inversion layer**.
+Since this layer is full of electrons, this specific part of the p-type substrate behaves like n-type silicon and creates a channel (or bridge) for electrons to flow from the source to the drain.
+Refer to the visual above or watch the [video](https://youtu.be/IcrBqCFLHIY) (where I grabbed it from) to visualize it better.
+
+![nmosoperation](https://i.imgur.com/siTVtdw.png)
+
+> **If the MOSFET uses the physical structure of a capacitor, the gate stores the charge accumulated when a voltage is applied, so how do you turn the nMOS OFF?** <br><br>
+Because the gate oxide is such a high quality insulator, if you apply +5V to the gate and then simply cut the wire (leaving the gate floating), the charge has nowhere to go.
+The nMOS would stay ON indefinitely or until the all the charge slowly leaks out.
+To actually turn the transistor OFF, you can't just stop applying the positive voltage to the gate, you have to actively drain the charge.
+In most digital circuits (like the processor in our computers), the gate is connected to a "driver" circuit.
+To turn the nMOS ON, the driver connects the gate to the Supply Voltage (`V_dd`). To turn the nMOS OFF, the driver flips a switch and connects the gate to Ground (V_ss).
+By connecting the gate to Ground (an ocean of electrons), you provide a low-resistance path for those stored electrons to rush back into the gate, neutralize the positive charge and kill the electric field.
+Looking into how the driver circuit works is not within the scope of the study but still encouraged if you are interested!
 
 <!-- TODO: talk about how pMOS is different from nMOS -->
-
+<!-- TODO: CMOS logic gates, analog circuits -->
 <!-- TODO: rename note metadata, refactor introduction a bit, rename note titles, rename git branch, change everything to transistors instead of computer logic -->
 
 ---
