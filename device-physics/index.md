@@ -395,13 +395,17 @@ Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how
 
 ### Current Rectification
 
-<div align="center">
-<img src="https://i.imgur.com/GJHft6R.png" alt="Full-Wave Rectifier Circuit" width="400" />
-</div>
-
 Our homes are powered by power grids that provide an AC to our wall outlets.
 And our electronic devices need to convert the AC from these outlets to DC because most sensitive electronics (computers, phones, etc.) run on a steady, one-way flow of electrons (DC), not the fluctuating AC waveform.
 Our devices convert AC to DC using a process called **rectification** typically involving: a transformer to adjust the voltage, a rectifier circuit (diodes) to change AC to pulsating DC, a capacitor to smooth the ripples, and a voltage regulator to provide a steady, constant output for electronics.
+
+<div align="center">
+
+<img src="https://i.imgur.com/GJHft6R.png" alt="Full-Wave Rectifier Circuit" width="400" />
+
+*Diagram of a circuit that shows how a full-wave rectifier is constructed.*
+
+</div>
 
 This is a breakdown of all the steps in the rectification process:
 
@@ -425,7 +429,11 @@ Once the processing is complete, the wafer is cut into tiny rectangles called **
 These chips are first tested, and then placed in a plastic or ceramic package with metal pins on the bottom to connect them to circuit boards.
 
 <div align="center">
+
 <img src="https://i.imgur.com/mTtlJpJ.png" alt="Silicon Wafer" width="400" />
+
+*An example of a silicon wafer body and the chips that it gets broken into.*
+
 </div>
 
 Specifically, MOSFET sandwiches consist of 3 main layers: a conductive layer on the top called the gate, an insulating dielectric layer of silicon dioxide (`SiO_2`) in the middle, and the silicon wafer called the substrate on the bottom.
