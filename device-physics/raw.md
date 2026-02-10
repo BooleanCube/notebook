@@ -1,8 +1,3 @@
-"There are 10 kinds of people: those who understand binary and those who can't."
-To move from the latter group to the former requires undertaking a specific journey: creation of the microprocessor.
-While the inner workings of these chips often seem like "magic" to the uninitiated, they are actually the result of straightforward engineering once carefully explained.
-Indeed, designing and building a microprocessor is considered a "special rite of passage" for computer science and engineering students, bridging the gap between hardware and software.
-
 This journey takes us "From Zero to One," starting with the simplest building blocks of 1s and 0s and culminating in a functioning computer.
 One of the characteristics that separates an engineer or computer scientist from a layperson is a systematic approach to managing complexity.
 Modern digital systems are built from millions or billions of transistors. No human being could understand these systems by writing equations describing the movement of electrons in each transistor and solving all of the equations simultaneously.
@@ -36,7 +31,7 @@ Moving into the software realm, the *operating system* handles low-level details
 Finally, the *application software* uses these facilities provided by the operating system to solve a problem for the user.
 Thanks to the power of abstraction, we can surf the web without any regard for the quantum vibrations of electrons of the organization of memory in the computer.
 
-In here, I want to focus on the lower levels of abstraction from **physics** through **logic**. When you are working at one level of abstraction, it is good to know something about the levels directly above and below it. For example, a computer scientist cannot fully optimize code without understanding the architecture for which the program is being written.
+In here, I want to focus on the lower levels of abstraction of **physics** and **devices**. When you are working at one level of abstraction, it is good to know something about the levels directly above and below it. For example, a computer scientist cannot fully optimize code without understanding the architecture for which the program is being written.
 
 **Discipline** is the act of intentionally restricting your design choices so that you can work more productively at a higher level of abstraction.
 Digital circuits use discrete voltages, whereas analog circuits use continuous voltages.
@@ -51,6 +46,7 @@ Like how, digital televisions and cell phones are replacing their analog predece
 
 When beginning to explore the world of computers, it is vital to start by understanding the basics of electricity and charge.
 Before we can dive deeper into higher layers of abstraction, we must ensure a deep understanding of what electrical charge is, and how we measure it with voltage, current, and resistance.
+I won't cover most basic physics topics in here but will briefly explain what I learned about electricity and fix common misconceptions about the physics of electrons.
 
 Electrical charge is a basic property of subatomic particles that occurs when electrons are transferred from one particle to another.
 An object becomes charged when it gains or loses electrons, creating an imbalance.
@@ -98,7 +94,7 @@ Imagine the battery as a ski lift taking you to the top of the mountain (10V).
 Every resistor or light bulb represents a slope, and as you ski down a slope, you lose height.
 At the very top of the mountain, let's say you are at 10V. After the first resistor, you could be measured at 7V. After the second resistor, you might be at 3V.
 And at the bottom of the mountain, you are measured at 0V.
-In this analogy, voltage represents the height difference between you and the **ground**.
+In this analogy, voltage represents the potential gravitational energy (height difference between you and the **ground**).
 This concept of **GND** (ground) can also be commonly found within most circuit diagrams and it represents the point of lowest voltage in the entire circuit (0 V, end of the flow of current).
 
 When a wire splits into two or more branches, the voltage across each branch is the exact same.
@@ -342,6 +338,8 @@ Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how
 
 ### Current Rectification
 
+<img src="https://i.imgur.com/GJHft6R.png" alt="fullwaverectifier" width=400 />
+
 Our homes are powered by power grids that provide an AC to our wall outlets.
 And our electronic devices need to convert the AC from these outlets to DC because most sensitive electronics (computers, phones, etc.) run on a steady, one-way flow of electrons (DC), not the fluctuating AC waveform.
 Our devices convert AC to DC using a process called **rectification** typically involving: a transformer to adjust the voltage, a rectifier circuit (diodes) to change AC to pulsating DC, a capacitor to smooth the ripples, and a voltage regulator to provide a steady, constant output for electronics.
@@ -351,7 +349,7 @@ This is a breakdown of all the steps in the rectification process:
 1. **Step-Down Transformer**: The high AC voltage from the wall outlet is reduced to a lower, more manageable AC voltage level for the device.
 2. **Rectifier (Diodes)**: Diodes allow current to flow in only one direction.
     - **Half-wave rectification**: Blocks the negative half of the AC wave, resulting in a pulsating DC.
-    - **Full-wave rectification**: Uses four diodes to flip the negative half of the wave, making it positive, creating a smoother, but still bumpy, DC output.
+    - **Full-wave rectification**: Uses four diodes to flip the negative half of the wave, making it positive, creating a smoother, but still bumpy, DC output. Check the figure above to visualize the circuit.
 3. **Filter (Capacitor)**: A capacitor charges up during the peaks of the pulsating DC and discharges during the dips, smoothing out the ripples and creating a steadier DC.
 4. **Voltage Regulator**: The regulator ensures a precise, constant DC voltage by compensating for any remaining fluctuations, providing the stable power needed for sensitive electronics.
 
@@ -374,7 +372,7 @@ If you were wondering, silicon dioxide is basically just glass and also often si
 Historically, the gate was constructed from metal, hence the name metal-oxide-semiconductor, however, modern manufacturing processes use polycrystalline silicon for the gate because it doesn't melt during some of the following high-temperature processing steps.
 The gate acts as the switch that stops and allows current to flow through the MOSFET when there is a voltage applied across the source and drain.
 
-![nmosandpmos](https://i.imgur.com/5bn2gNE.png)
+![nmosandpmos](https://i.imgur.com/5bn2gNE.png) <br>
 
 As shown by the figure above, there are two flavors of MOSFETs: nMOS and pMOS. The figure illustrates the cross section of the nMOS and pMOS from the side.
 The n-type transistors, also known as nMOS, have 2 separate regions of n-type dopants neighbouring the gate (called the **source** and **drain**) that were planted onto a p-type semiconductor substrate base.
@@ -382,6 +380,9 @@ The pMOS transistors are just the opposite, consisting of a p-type source and dr
 
 Now you're probably wondering: "why are there 2 flavors of MOSFETs and what's the difference between how they function?"
 Before I get into that, I want to first dive into the nMOS transistor and how the components we learned about earlier come together to operate this transistor.
+After that, I can explain how pMOS constructions and operations contrast from nMOS.
+
+### Working principle of nMOS
 
 The source and drain of a MOSFET are both connected to regions of n-type dopants that are embedded into the top of the p-type wafer substrate like shown in the diagram.
 Doesn't this look familiar? The n-type regions that were embedded into the p-type substrate actually create two back to back **diodes** within the MOSFET from source to body and drain to body.
@@ -392,8 +393,10 @@ Before I begin explaining, it might be helpful to revisit how diodes work and un
 So when the gate is electrically neutral, meaning there has been no voltage applied to it yet, but there is a voltage across the source and drain, MOSFETs block current from flowing through as designed to.
 The question is not why, but how? Think of how the electrons are moving. The voltage applied pulls the electrons from the ground which the drain is attached to.
 Basically, electrons within the drain experience a pulling force from the ground which pull electrons away from the PN junction making the depletion region wider.
-In simple terms, the current is trying to flow through a reverse biased diode which we have learned acts as an insulator, therefore blocking the current.
+In simple terms, the current is trying to flow through a reverse biased diode which we have learned acts as an insulator, therefore blocking the current from "leaking" from the drain into the floor of the chip.
 This is a brief explanation as to how reverse biased diodes block current, read the notes on diodes for more in depth explanations.
+Ultimately, for a diode to pass current, it needs to be forward biased (p-type region has a higher voltage), but in the case of an nMOS transistor the p-type substrate is connected to Ground (0V).
+No matter how much voltage is provided to the drain, the diodes will forever be reverse biased.
 
 If you haven't noticed already, the metal-oxide-semiconductor sandwich we manufactured earlier actually forms a **capacitor**. Take a look at the figure of an nMOS transistor above.
 There is a thin insulating dielectric layer (from the silicon dioxide) that separates the two conductive plates which are the polysilicon gate on top and the silicon wafer substrate on the bottom.
@@ -421,9 +424,75 @@ To turn the nMOS ON, the driver connects the gate to the Supply Voltage (`V_dd`)
 By connecting the gate to Ground (an ocean of electrons), you provide a low-resistance path for those stored electrons to rush back into the gate, neutralize the positive charge and kill the electric field.
 Looking into how the driver circuit works is not within the scope of the study but still encouraged if you are interested!
 
-<!-- TODO: talk about how pMOS is different from nMOS -->
-<!-- TODO: CMOS logic gates, analog circuits -->
+![bjtvsmosfet](https://i.imgur.com/HWZnJf8.png)
+
+> **Why do transistors today use a capacitor structure?** <br><br>
+Using a capacitor (for the "Field Effect") instead of a direct connection (like the "Current Effect") in older Bipolar Junction Transistors (BJT) was one of the most important design choices in human history.
+In older BJT transistors, you have keep pushing current into the base to keep it on which constantly wastes energy.
+In a MOSFET, however, once you charge the capacitor, no more current flows, and it stays ON for free.
+That's the main reason why your phone doesn't get hot just sitting in your pocket even with the screen off. I'm not interested in diving deep into BJTs here since it is outdated technology.
+Also, since the gate is completely insulated by the capacitor's dielectric, we can control larger electric components like massive motors with a tiny microprocessor and not have to worry about any high power leaking back into the processor which could potentially fry it.
+Capacitative gates are also much easier to shrink, and as you make a MOSFET smaller, you make the "capacitor" smaller, making it faster to charge and discharge.
+This allowed engineers go from fitting a few thousand transistors in a chip to billions today, keeping Moore's Law alive.
+Watch this [video](https://youtu.be/MiUHjLxm3V0) by Veritasium about modern transistors to understand the latest advancements in transistor technology.
+
+### Working principle of pMOS
+
+Matter of fact, the operations of a pMOS transistor are the exact opposite than that of an nMOS transistor.
+The only difference between the construction of a pMOS and nMOS is the wafer substrate and the dopant regions.
+In a pMOS transistor, the wafer body is actually doped as n-type silicon and the source and drain are both connected to regions of the wafer embedded with p-type dopants.
+
+![cmosexample](https://i.imgur.com/8Ng8qpR.png)
+
+That might make you curious, how do CMOS circuits combine nMOS and pMOS transistors to work together if their entire wafer bodies need to be doped differently?
+This is where the magic of combining nMOS and pMOS together to give us CMOS technology comes into play.
+We actually start with a single p-type wafer (connected to Ground), and then "dig" little swimming pools of n-type silicon dopants into it called **n-wells**.
+pMOS transistors sit within these n-wells as they require an n-type body to operate with more p-type dopants implanted into the n-wells.
+
+Logically, the pMOS functions as the exact opposite from the nMOS transistors, but that is a mere illusion as they actually operate very similarly.
+The nMOS is OFF when the gate experiences no voltage and ON when a positive voltage is applied to the gate.
+The pMOS works the opposite way, meaning it is ON when the gate experiences no voltage, but OFF when the gate experience a positive enough voltage.
+However, the pMOS doesn't exactly work the way you might initially imagine.
+
+In the vast majority of CMOS circuits, the source and wafer body are tied to the same wire.
+In an nMOS, the source and body are both connected to ground because it is the Source's job to provide electrons and the Body's job to reversely bias the diodes with what the source provides and the drain demands.
+Connecting the p-type wafer of an nMOS to ground pushes electrons into the wafer, neutralizing the electric field between the gate and the body, and keeping the diodes reverse biased by holding the depletion regions strong.
+Similarly, in a pMOS, the source and body are both connected to the point of highest voltage (`V_DD` ~ +5V).
+In the case of pMOS, it is the Source's job to provide holes to the circuit and the Body's job to provide a high enough voltage to the n-type substrate such that the p-type source and drain can never have a higher voltage, keeping them reverse biased.
+So the source-body and drain-body diodes will be forever reverse biased by default because the Body is tied to the highest voltage in the circuit.
+
+![cmoslogic](https://i.imgur.com/LLJHNQI.png)
+
+However, since the substrate is tied to a high positive voltage, when the gate is electrically neutral (0V), an electric field across the dielectric is formed.
+This electric field points in the opposite direction than that of an nMOS and repels the free electrons in the n-type substrate but attracts the holes from the source, drain, and body.
+This creates a thin inversion layer at the bottom of the dielectric of p-type silicon in the n-type substrate and temporarily disables the depletion layer at the PN junctions.
+The channel formed also allows holes (positive charge carriers) to flow from the source to the drain.
+In reality, electrons are jumping from the drain, into the holes of the body, and moving towards the source and current is flowing in the opposite direction.
+Conventional current in nMOS transistors flows from drain to source, but source to drain in pMOS transistors.
+
+When you provide a positive voltage to the gate that is equal to the source/body, the electric field across the dielectric gets neutralized, and the diodes are back to being reverse biased to block current.
+Even though pMOS is constructed differently, the way the pMOS operates is the exact same as the nMOS.
+However the operation of a pMOS creates the "logical illusion" of being completely opposite to that of an nMOS transistor.
+Ultimately, when the gate is connected to Ground (0V) the pMOS is considered ON, and when the gate is connected to (`V_DD` ~ +5V) it is considered OFF, making the pMOS the logical opposite of the nMOS transistor.
+
+### Why both flavors?
+
+Unfortunately, MOSFETs are not perfect switches. CMOS circuits face a physical limitation called the Threshold Voltage (`V_th`).
+To understand this, you have to remember that a MOSFET follow the source voltage when it's trying to pass a signal.
+In an nMOS, the gate needs to have a slightly higher voltage than the voltage it is trying to move, and in pMOS, the gate needs to have a slightly lower voltage than the voltage it's trying to move.
+nMOS is very good at passing 0s because whether the gate is "closed" or "wide open", it passes a strong 0 since the source voltage is already 0.
+When trying to pass a +5V signal, the source voltage slowly starts to increase but eventually stops around 4.3V (for a 0.7 threshold voltage) to keep the transistor ON.
+Therefore nMOS transistors are weak when trying to pass 1s.
+On the contrary, pMOS is good at passing 1s for the exact same reason.
+When trying to pass a 0V signal, the source voltage slowly starts to decrease but eventually stops around 0.7 V (because of the threshold) to keep the transistor OFF.
+
+Since nMOS is bad at passing 1s and pMOS is bad at passing 0s, CMOS technology uses them in complementary pairs majority of the time (hence the name "Complementary MOS").
+In digital logic, specifically CMOS, every logic gate is divided into two separate halves that works together: the **Pull-Up Network (PUN)** and the **Pull-Down Network (PDN)**.
+Their job is to ensure the output pin is always connected to either High (`V_DD`) or Low (`GND`), and never both at the same time.
+I will dive deeper into driver circuits, gate networks, and more in the next study talking about circuits and logic. Stay tuned!
+
 <!-- TODO: rename note metadata, refactor introduction a bit, rename note titles, rename git branch, change everything to transistors instead of computer logic -->
+<!-- TODO: ask chat to reformat the entire article to show the images better instead of just being between the text. i dont want any of the content to be changed just the formatting and maybe the "look at the figure above"s and create a raw.md first -->
 
 ---
 
