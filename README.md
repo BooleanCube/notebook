@@ -80,7 +80,7 @@ Run the compilation script to update `directory.json`. This traverses all subfol
 
 DISCLAIMER: Make sure to build the directory within the `main` branch.
 The reason behind this is so the last commit pushed can be within the `main` branch which will trigger the webhooks to update the portfolio notebook.
-Merging branches doesn't count as commits pushed, only merged. So make sure to merge the note changes and then push the directory updates.
+Merging branches doesn't count as commits pushed, only merged. Directory updates should be the only commit being pushed within the main branch.
 
 ```bash
 python compile.py
@@ -92,8 +92,8 @@ If you spot an error in the logic (especially in the math or algorithm sections)
 
 1. Fork the repository.
 2. Make your changes to the relevant `.md` file.
-3. Run `python compile.py` to ensure the build passes.
-4. Open a Pull Request.
+3. Open a Pull Request.
+4. Wait for me to review, merge, and update directory :)
 
 ---
 
