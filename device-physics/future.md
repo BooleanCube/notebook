@@ -143,6 +143,95 @@ If we increased the amount of water (charge) in the left tank, we increase the p
 As explained by the analogy, Ohm combined the elements of voltage, current, and resistance to develop the formula of Ohm's Law: `V = IR`. <br>
 `V` = Voltage in Volts, `I` = Current in Amps, and `R` = Resistance in Ohms.
 
+## Carrier Drift
+
+Now that we have an intuitive understanding of voltage, current, and resistance, it's worth formalizing how charge carriers actually move inside semiconductor materials. The first mechanism is **drift**, which is the movement of charge carriers in response to an applied electric field.
+
+In a semiconductor crystal, free electrons and holes are constantly in random thermal motion, bouncing off the lattice atoms in every direction. On average, this random motion produces zero net displacement — the carriers go nowhere. However, when an external electric field **E** is applied (by connecting a voltage across the material), a net force is exerted on each carrier. Electrons experience a force opposite to the field direction (since they carry negative charge), while holes experience a force in the same direction as the field.
+
+This force doesn't cause the carriers to accelerate indefinitely. Instead, they constantly collide with the vibrating lattice atoms, impurities, and other carriers, losing their gained momentum each time. The result is a steady average velocity superimposed on top of the random thermal motion, called the **drift velocity** (`v_d`). The drift velocity is proportional to the applied electric field:
+
+`v_d = μE`
+
+where `μ` (mu) is the **carrier mobility**, a material property measured in cm²/(V·s) that quantifies how easily a carrier can move through the lattice under an electric field. Electrons and holes have different mobilities (in silicon, electron mobility ≈ 1350 cm²/(V·s) and hole mobility ≈ 480 cm²/(V·s) at room temperature), which is why electrons are generally more effective charge carriers.
+
+The drift current density (current per unit area) for electrons and holes can be written as:
+
+`J_n,drift = qnμ_nE`
+`J_p,drift = qpμ_pE`
+
+where `q` is the elementary charge (1.6 × 10⁻¹⁹ C), `n` and `p` are the electron and hole concentrations, and `μ_n` and `μ_p` are the electron and hole mobilities respectively. The total drift current density is the sum of both contributions:
+
+`J_drift = q(nμ_n + pμ_p)E`
+
+This expression is directly related to Ohm's Law. The quantity `σ = q(nμ_n + pμ_p)` is the **conductivity** of the material, and its reciprocal `ρ = 1/σ` is the **resistivity**. So at the microscopic level, Ohm's Law (`J = σE`) is really just a statement about drift current.
+
+A few important things to note about drift:
+
+- Mobility decreases at higher temperatures because increased lattice vibrations cause more frequent collisions (this is called **lattice scattering**).
+- Mobility also decreases with higher doping concentrations because ionized dopant atoms act as additional scattering centers (**impurity scattering**).
+- At very high electric fields, the drift velocity saturates and no longer increases linearly with the field. This **velocity saturation** effect is important in modern nanoscale transistors where internal fields can be extremely large.
+
+## Carrier Diffusion
+
+The second fundamental mechanism for carrier transport in semiconductors is **diffusion**. Unlike drift, which is driven by an electric field, diffusion is driven by concentration gradients — carriers naturally move from regions of high concentration to regions of low concentration.
+
+This is the exact same physical principle behind how a drop of ink spreads through a glass of water, or how the scent of perfume fills a room. No external force is needed; it is purely a statistical consequence of random thermal motion. When there are more carriers on one side than the other, random motion causes a net flow from the crowded region to the sparse region simply because more carriers are randomly moving away from the high-concentration side than toward it.
+
+The diffusion current density is proportional to the concentration gradient:
+
+`J_n,diff = qD_n(dn/dx)`
+`J_p,diff = -qD_p(dp/dx)`
+
+where `D_n` and `D_p` are the **diffusion coefficients** (or diffusivities) for electrons and holes respectively, measured in cm²/s. The negative sign for holes arises because holes carry positive charge — when hole concentration decreases in the x-direction (negative gradient), holes diffuse in the +x direction, which constitutes positive current.
+
+The diffusion coefficient and mobility are not independent. They are related by the **Einstein relation**:
+
+`D = (kT/q)μ`
+
+where `k` is Boltzmann's constant (1.38 × 10⁻²³ J/K), `T` is the absolute temperature in Kelvin, and `kT/q` is called the **thermal voltage** (approximately 26 mV at room temperature, 300K). This relationship makes intuitive sense: a carrier that moves easily under an electric field (high mobility) will also diffuse quickly under a concentration gradient (high diffusivity), since both depend on how far a carrier can travel between collisions.
+
+The total current in a semiconductor is the sum of both drift and diffusion components:
+
+`J_n = qnμ_nE + qD_n(dn/dx)`
+`J_p = qpμ_pE - qD_p(dp/dx)`
+
+In most bulk semiconductor regions with uniform doping under a uniform field, drift dominates. But at junctions and interfaces where carrier concentrations change rapidly over short distances (like the PN junction of a diode), diffusion plays a critical role. In fact, the built-in voltage of a PN junction at equilibrium is precisely the condition where the drift and diffusion currents for each carrier type exactly cancel each other out — which is the equilibrium condition described in the diode section of these notes.
+
+## Generation and Recombination
+
+In a semiconductor, electrons and holes are not permanent — they are constantly being created and destroyed through processes called **generation** and **recombination**. Understanding these processes is essential because they determine the carrier concentrations in a semiconductor and directly affect how devices like diodes and transistors behave.
+
+**Generation** is the process of creating electron-hole pairs. When an electron gains enough energy to jump from the valence band to the conduction band, it leaves behind a hole in the valence band. There are several mechanisms:
+
+- **Thermal generation**: At any temperature above absolute zero, the lattice atoms are vibrating, and some of this thermal energy can randomly kick an electron into the conduction band. Higher temperatures mean more vigorous lattice vibrations, which generate more electron-hole pairs. This is why semiconductor conductivity increases with temperature (opposite to metals).
+- **Optical generation (photogeneration)**: When a photon with energy greater than the bandgap strikes the semiconductor, it can be absorbed by an electron in the valence band, promoting it to the conduction band. This is the fundamental principle behind solar cells and photodetectors.
+- **Impact ionization**: At very high electric fields, a carrier can gain enough kinetic energy between collisions that when it does collide with a lattice atom, the collision knocks a valence electron into the conduction band, creating a new electron-hole pair. This is a runaway process that can lead to avalanche breakdown in reverse-biased diodes.
+
+**Recombination** is the reverse process — an electron in the conduction band drops down and fills a hole in the valence band, destroying both carriers. The main mechanisms are:
+
+- **Direct (band-to-band) recombination**: An electron falls directly from the conduction band into a hole in the valence band, releasing energy as a photon. This is the dominant recombination mechanism in direct bandgap semiconductors like GaAs, and is the principle behind LEDs and laser diodes. In silicon (an indirect bandgap semiconductor), direct recombination is relatively rare because the electron must also change its momentum, which requires an additional interaction with a lattice vibration (phonon).
+- **Shockley-Read-Hall (SRH) recombination**: This is the dominant recombination mechanism in silicon. Impurities or crystal defects create energy levels (called **traps**) within the bandgap. An electron can fall into a trap, and then subsequently fall from the trap into the valence band to recombine with a hole. This two-step process is much more probable than direct recombination in indirect bandgap materials. SRH recombination is why semiconductor purity and crystal quality matter so much in device fabrication.
+- **Auger recombination**: When an electron and hole recombine, instead of emitting a photon, the released energy is transferred to a third carrier (either another electron or hole), which is then excited to a higher energy state within its band. This carrier eventually loses the extra energy to the lattice as heat. Auger recombination becomes significant at very high carrier concentrations, such as in heavily doped regions or under high injection conditions.
+
+At **thermal equilibrium** (no external voltage, light, or other energy source), the rate of generation exactly equals the rate of recombination. This balance maintains a steady-state carrier concentration. For an intrinsic (undoped) semiconductor, both the electron and hole concentrations equal the **intrinsic carrier concentration** `n_i`, and the product of electron and hole concentrations satisfies:
+
+`np = n_i²`
+
+This is known as the **mass action law**, and it holds even for doped semiconductors in thermal equilibrium. In an n-type semiconductor, the abundance of free electrons (majority carriers) increases the recombination rate, which suppresses the hole concentration (minority carriers) until the product `np` returns to `n_i²`.
+
+When a semiconductor is disturbed from equilibrium (by applying a voltage, shining light on it, or injecting carriers through a junction), the carrier concentrations deviate from their equilibrium values. The **excess carriers** (carriers above the equilibrium concentration) will recombine over time, and the rate at which they decay is characterized by the **carrier lifetime** `τ`:
+
+`Δn(t) = Δn(0) · e^(-t/τ)`
+
+where `Δn` is the excess carrier concentration. The carrier lifetime is a critical parameter in device design — it determines how quickly injected carriers recombine in the base of a bipolar transistor, how efficiently a solar cell collects photogenerated carriers, and how fast a diode can switch from forward bias to reverse bias.
+
+A related concept is the **diffusion length** `L`, which represents how far an excess carrier can diffuse before recombining:
+
+`L = √(Dτ)`
+
+where `D` is the diffusion coefficient. In a PN junction diode, the diffusion length determines how far minority carriers can travel into the neutral regions before recombining, which directly affects the diode's current-voltage characteristics.
+
 # 2. Device Components
 
 Before diving into circuits, it is helpful to understand the context of **device components** within **digital circuits**.
