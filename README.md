@@ -78,6 +78,10 @@ Content goes here...
 
 Run the compilation script to update `directory.json`. This traverses all subfolders and aggregates the metadata.
 
+DISCLAIMER: Make sure to build the directory within the `main` branch.
+The reason behind this is so the last commit pushed can be within the `main` branch which will trigger the webhooks to update the portfolio notebook.
+Merging branches doesn't count as commits pushed, only merged. So make sure to merge the note changes and then push the directory updates.
+
 ```bash
 python compile.py
 ```
