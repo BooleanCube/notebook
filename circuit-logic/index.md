@@ -54,4 +54,8 @@ Like how, digital televisions and cell phones are replacing their analog predece
 
 ---
 
+# Resources
+
+---
+
 *Written by BooleanCube :]*
