@@ -153,9 +153,32 @@ If we increased the amount of water (charge) in the left tank, we increase the p
 As explained by the analogy, Ohm combined the elements of voltage, current, and resistance to develop the formula of Ohm's Law: `V = IR`.
 `V` = Voltage in Volts, `I` = Current in Amps, and `R` = Resistance in Ohms.
 
+## Fields and Real Electricity
+
+Electric fields (E) are produced by static or moving charges and exert forces on charges, whereas magnetic fields (B) are produced only by moving charges (currents) or magnets and act on moving charges.
+Electric field lines start/end on charges and do not form loops whereas magnetic field lines form closed loops.
+
+Ohm's Law is actually an abstraction over Maxwell's equations and Poynting's theorem which explain the exact reason behind the behavior of electrons.
+Ohm's Law simplifies electricity into 3 main variables which are voltage, current, and resistance, but there's actually a lot more going on behind the scenes of why electrons move the way they do.
+While this is an important simplification/abstraction for us to move forward with the study, I thought it was interesting enough for me to study how electricity actually works and share it here.
+I am not going to dive too deep into Maxwell's equations as it isn't that relevant to this, but I want to at least understand what it describes.
+
+Think of two electrons, coming close to each other. They both generate electric fields that repel each other.
+While there is a mechanical force (us) pushing these electrons together to keep them in place. As soon as we remove that mechanical force, the electrons shoot apart.
+It seems like energy was just created out of thin air.
+I know, it's unintuitive that energy just sits in the air around the electrons, but it's true: electric and magnetic fields can store potential energy that convert to kinetic energy when appropriate.
+
+Maxwell's equations are a set of four fundamental partial differential equations that describe how electrical and magnetic fields are generated, interact, and propagate, forming the foundation of classical electromagnetism, optics, and circuits.
+Yes, that's right, circuits actually generate both the electric fields within the wire and magnetic fields from the power source and current to explain the behavior of electrons.
+Poynting pointed out (no pun intended) with his theorems that the energy flux is defined by the Poynting Vector which represents the directional energy flow per unit area.
+The real reason behind the movement of these electrons is because of the energy stored in electric and magnetic fields that are erected within the circuits, not because of the pushing/pulling of electrons from "voltage".
+
+There are a few more interesting videos that I would recommend watching to really understand how electricity truly works.
+[electricity intuition](https://youtu.be/X_crwFuPht4) - [electricity experiment #1](https://youtu.be/bHIhgxav9LY) - [electricity experiment #2](https://youtu.be/oI_X2cMHNe0)
+
 ---
 
-# 2. Device Components
+# 2. Semiconductor Devices
 
 Before diving into circuits, it is helpful to understand the context of **device components** within **digital circuits**.
 While most physical variables in the real world (voltage, frequency, or position) are continuous (analog), digital systems abstract this information into discrete-valued variables.
