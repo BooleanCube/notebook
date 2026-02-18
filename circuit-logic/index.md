@@ -44,6 +44,8 @@ Like how, digital televisions and cell phones are replacing their analog predece
 
 # 1. Analog Circuits
 
+Analog circuits are electronic systems that process continuous signals (representing real-world data like sound, temperature, or light) using components such as resistors, capacitors, diodes, and transistors.
+
 ---
 
 # 2. Digital Circuits
