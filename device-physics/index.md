@@ -169,7 +169,8 @@ It seems like energy was just created out of thin air.
 I know, it's unintuitive that energy just sits in the air around the electrons, but it's true: electric and magnetic fields can store potential energy that convert to kinetic energy when appropriate.
 
 Maxwell's equations are a set of four fundamental partial differential equations that describe how electrical and magnetic fields are generated, interact, and propagate, forming the foundation of classical electromagnetism, optics, and circuits.
-Yes, that's right, circuits actually generate both the electric fields within the wire and magnetic fields from the power source and current to explain the behavior of electrons.
+Yes, that's right, circuits actually generate both the electric fields on the surface of the wire and magnetic fields from the power source and current to explain the behavior of electrons.
+The electric field gradient on the surface of the wire is actually what guides the electrons in the general drift direction.
 Poynting pointed out (no pun intended) with his theorems that the energy flux is defined by the Poynting Vector which represents the directional energy flow per unit area.
 The real reason behind the movement of these electrons is because of the energy stored in electric and magnetic fields that are erected within the circuits, not because of the pushing/pulling of electrons from "voltage".
 
@@ -187,14 +188,7 @@ Specifically, electronic computers generally use a binary representation, where 
 This digital abstraction allows designers to focus on the logical manipulation of 1s and 0s without constantly solving complex physics equations describing the motion of electrons in every component.
 Digital circuits are the physical implementations of this logic, restricting voltages to discrete ranges to represent binary states.
 
-## CMOS Transistors
-
-Modern digital circuits are primarily built using **transistors**, which act as electronically controlled switches that turn ON and OFF when voltage or current is applied to a control terminal.
-The two main types of transistors are *bipolar transistors* and *metal-oxide-semiconductor field effect transistors* (MOSFETs or MOS transistors, pronounced "moss-fets" or "M-O-S", respectively).
-The specific technology used for the vast majority of chips today is known as CMOS (Complementary MOS).
-To understand how these switches work, we must look at the underlying materials and components: semiconductors, diodes, and capacitors.
-
-### Semiconductors
+## Semiconductors
 
 <div align="center">
 
@@ -225,7 +219,7 @@ Adding Boron (group III) creates **p-type** silicon, which has "holes" (missing 
 
 </div>
 
-### Diodes
+## Diodes
 
 A **diode** is a semiconductor device, typically made of doped silicon, that essentially acts as a one-way switch for current.
 It allows current to flow easily in one direction but severely restricts current from flowing in the opposite direction.
@@ -317,7 +311,7 @@ Even though diodes block current with reverse bias, if the reverse voltage is hi
 
 </div>
 
-### Capacitors
+## Capacitors
 
 A **capacitor** is an electrical circuit component that temporarily lets current flow through and temporarily stores electrical energy (like a battery).
 It contains two conductive plates separated by an insulating dielectric.
@@ -416,7 +410,7 @@ Since AC consistently changes direction, the capacitor repeatedly charges and di
 
 Here is a quick [video](https://youtu.be/X4EUwTwZ110) that visually explains how electricity "flows through" the capacitor.
 
-### Current Rectification
+## Current Rectification
 
 Our homes are powered by power grids that provide an AC to our wall outlets.
 And our electronic devices need to convert the AC from these outlets to DC because most sensitive electronics (computers, phones, etc.) run on a steady, one-way flow of electrons (DC), not the fluctuating AC waveform.
@@ -439,7 +433,14 @@ This is a breakdown of all the steps in the rectification process:
 3. **Filter (Capacitor)**: A capacitor charges up during the peaks of the pulsating DC and discharges during the dips, smoothing out the ripples and creating a steadier DC.
 4. **Voltage Regulator**: The regulator ensures a precise, constant DC voltage by compensating for any remaining fluctuations, providing the stable power needed for sensitive electronics.
 
-## nMOS vs pMOS
+## CMOS Transistors
+
+Modern digital circuits are primarily built using **transistors**, which act as electronically controlled switches that turn ON and OFF when voltage or current is applied to a control terminal.
+The two main types of transistors are *bipolar transistors* and *metal-oxide-semiconductor field effect transistors* (MOSFETs or MOS transistors, pronounced "moss-fets" or "M-O-S", respectively).
+The specific technology used for the vast majority of chips today is known as CMOS (Complementary MOS).
+To understand how these switches work, we must look back at the underlying materials and devices: semiconductors, diodes, and capacitors.
+
+### nMOS vs pMOS
 
 MOSFETs are kind of like sandwiches that consist of layers of conductive and insulating materials. These MOSFETs are built on thin and flat **wafers** like most modern electronics.
 A wafer is a thin slice of semiconductor material, typically high-purity crystalline silicon, used as the substrate for fabricating integrating circuits (chips) in electronics.
@@ -622,6 +623,73 @@ Since nMOS is bad at passing 1s and pMOS is bad at passing 0s, CMOS technology u
 In digital logic, specifically CMOS, every logic gate is divided into two separate halves that works together: the **Pull-Up Network (PUN)** and the **Pull-Down Network (PDN)**.
 Their job is to ensure the output pin is always connected to either High (`V_DD`) or Low (`GND`), and never both at the same time.
 I will dive deeper into driver circuits, gate networks, and more in the next study talking about circuits and logic. Stay tuned!
+
+## Inductors
+
+Inductors are actually a very interesting device that function similar to that of capacitors, however operate very differently. They are the unsung heroes of power delivery.
+They ensure your microprocessor receives a smooth, steady stream of electrons, even when its power demands dip or spike in nanoseconds.
+
+Think of an inductor as a large water wheel using the water pump analogy.
+While a capacitor resists changes in voltage (storing energy in an electric field), inductors resist changes in current (storing energy in a magnetic field).
+
+<div align="center">
+
+<img src="https://i.imgur.com/ubIIzuF.png" alt="Example of Inductor" width=600 />
+
+</div>
+
+At its simplest, an inductor is just a coil of wire, which is usually wrapped around a "core" made of air or magnetic material like ferrite.
+When current flows through the wire, it creates a magnetic field that loops around the coils.
+
+Initially, when you try to send current through an inductor, the growing magnetic field creates a "back-EMF" (a counter-voltage).
+It's like trying to push a heavy car, it takes time to get it moving because of the inertia.
+However, once the current is flowing steadily, the magnetic field becomes stable. To the DC current, the inductor now looks like a plain piece of wire (short circuit).
+Like you would expect, if you try to suddenly stop the current, the magnetic field begins to collapse but resists the change due to electrical inertia.
+As it collapses, it "pushes" the electrons forward, trying to keep the current flowing.
+At the start, when we start sending current through, the magnetic field starts to store potential energy and produces a weakening counter voltage.
+Once the inductor is fully "charged", and we cut the voltage supply, the potential energy stored in the magnetic field, provides another weakening voltage that keeps pushing the electrons forward.
+The inductor keeps pushing current until all energy is spent and the magnetic field collapses again.
+In AC current, inductors also pass current in changing magnitudes and directions according to the voltage, however, it usually lags behind the voltage.
+It lags behind the voltage because the inductor constantly fights against the changing current, and we call this **inductive reactance**.
+Please watch this [video](https://youtu.be/KSylo01n5FY) that illustrates the working principle of an inductor in a simple DC circuit. I found it very helpful!
+
+While you won't find many inductors inside a silicon chip, because they are too bulky to manufacture at the nm scale, you can find them throughout the **motherboard**.
+They are primarily used in motherboards to stabilize, filter, and regulate power supplied to sensitive components like the CPU and RAM.
+They work within Voltage Regulator Modules (VRMs) to smooth out fluctuating current, store energy in magnetic fields, and remove high frequency noise, ensuring a steady, clean DC voltage.
+Your power supply usually sends 12V, but your CPU only needs 1.2V. Inductors are used in Buck Converters to chop that 12V and smooth it out.
+They act as a reservoir, filling up and draining out to provide a perfectly flat voltage to the processor.
+
+## Transformers
+
+Inductors are actually very useful as we use them in a ton of places.
+We talked about step down transformers earlier while talking about current rectification but to quickly revisit:
+a transformer is essentially a device used to control the voltage received from an AC power supply.
+A transformer is a device that connects two disconnected circuits (input and output) together by using two inductors that are so close to each other that they share the same magnetic field.
+It operates using a process called **mutual induction** to transfer energy between two circuits without any direct electrical connection.
+In step-down transformers, when AC current flows through the primary inductor (input), it creates a constantly changing magnetic field.
+To make this more efficient, both inductors are usually wound around a shared iron core. This helps direct nearly all the magnetic flux from the first inductor into the second.
+The secondary inductor (output) simply sits within the magnetic field. Because the magnetic field is constantly moving, it induces a voltage in the second coil as well.
+
+<div align="center">
+
+<img src="https://i.imgur.com/z01JHuR.png" alt="Transformer Example" width=600 />
+
+</div>
+
+There are actually two types of transformers: step-up transformers that have more loops in the secondary inductor's coil than the first, and step-down transformers that have less loops in the secondary inductor's coil than the first.
+The ratio of the loops in each inductor affects how strong the voltage across the output inductor will be because it dictates how strong the magnetic field around the inductor will be.
+So the step-down transformers that were used in current rectification actually reduce the voltage from the strong AC power supply because the output coil has less loops than the input coil.
+However, physics doesn't give you energy for free. If you step up the voltage by having ten times more loops, you get one tenth of the current.
+The total power (work done over time) stays the same according to the relation `P = V * I`.
+
+> If there is no physical connection, how does the primary coil (input circuit) know when to draw more power from the wall when you plug something into the secondary coil (output circuit)?
+
+> When nothing is plugged into the secondary, the primary coil acts as a simple inductor. As we discussed before, it creates a back-EMF that almost perfectly fights the incoming wall voltage. Very little current flows because the primary is blocking itself.
+> When you plug a device, like a lamp, into a wall, it usually has a transformer within it that connects the secondary inductor (output) to the circuit with the bulb and the primary inductor (input) to the wall outlet.
+> Once the transformer is powered by the wall, the primary coil produces current and current also starts flowing through the secondary loops.
+> The secondary current also creates its own magnetic field which opposes the magnetic field of the primary magnetic field.
+> Since the primary magnetic field gets weaker, the back EMFs also get weaker, which no longer fight as much against the wall voltage as effectively.
+> As a result, more current rushes into the primary inductor from the wall and the loop continues until either inductor is maxed out.
 
 ---
 
