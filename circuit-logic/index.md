@@ -45,6 +45,34 @@ Like how, digital televisions and cell phones are replacing their analog predece
 # 1. Analog Circuits
 
 Analog circuits are electronic systems that process continuous signals (representing real-world data like sound, temperature, or light) using components such as resistors, capacitors, diodes, and transistors.
+They operate on a continuous range of voltage or current, allowing for functions like amplification, filtering, and signal conditioning.
+Unlike digital circuits, analog circuits are more susceptible to noise but are essential for interfacing with a physical world.
+
+While most physical variables in the real world (voltage, frequency, or position) are continuous (analog), digital systems abstract this information into discrete-valued variables.
+Basically, what I am trying to say is that digital circuits are continuous too, since they too are built from analog components like transistors.
+However, we simply abstract their continuous values into discrete valued 1s and 0s to make them digital circuits. This abstraction helps lay the groundwork to start building microprocessors.
+So this might have you questioning: what is the difference between digital and analog circuits since all circuits are analog anyway?
+
+![signaltimeline](https://i.imgur.com/SwC3QUn.png)
+
+In a twisted way, analog circuits are digital circuits without the abstraction. We need their continuous values sometimes to gain more information that we can't from digital circuits.
+For example, when a computer interacts with the physical world through sensors (like a microphone picking up sound or a thermometer measuring heat), the electrical signals it receives are usually tiny (millivolts).
+They are usually also full of electromagnetic noise since electrons fluctuate very randomly and continuous variables are susceptible to noise.
+A microprocessor's Analog-to-Digital Converter (ADC) might not be able to read these signals raw signals accurately.
+
+Signal conditioning is the process of amplifying the tiny signal so the processor can see it, and filtering the noise so the processor doesn't process garbage data.
+I want to briefly deep dive into the analog components that are responsible for any signal conditioning that occurs within analog circuits.
+I will not be diving into the working principles of these devices or components.
+
+## Amplification
+
+<!-- TODO: introduce what amplification is and why it is important -->
+<!-- TODO: talk about operational amplifiers and how they work as comparators and how they work as inverting amplifiers and noninverting amplifiers -->
+<!-- TODO: talk about negative feedback loops and why op-amps need them for inverted or noninverted amplification -->
+
+## Filtering
+
+<!-- TODO: read up on filtering and plan notes to take -->
 
 ---
 
