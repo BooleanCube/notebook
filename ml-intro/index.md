@@ -33,6 +33,7 @@ A proper understanding of statistics and probability is highly critical for cond
 There are actually many types of machine learning models that solve different type of problems.
 The specific problem being solved determines which type of model you want to consider using.
 Note: the terms machine learning "algorithms", "models", and "systems" are used interchangeably and are all the same thing.
+Note: the terms "sample", "instance", and "observation" are also all the same thing.
 
 ### Supervised Learning
 
@@ -102,7 +103,7 @@ There are two main types of challenges that data scientists can run into when tr
 - **Poor Quality Data**: Based on the "Garbage In, Garbage Out" (GIGO) principle, a system cannot perform well if training data is full of errors, outliers, and noise. Data cleaning is a significant part of a data scientists job.
 - **Irrelevant Features**: The model needs relevant features to learn. Feature engineering involves selecting the most useful features, combining existing ones, or even creating new ones.
 
-### Algorithm Challenges
+### Algorithmic Challenges
 
 - **Overfitting**: This occurs when a model performs well on training data but fails to generalize to new instances because it is too complex and detects patterns in the data's noise. Solutions include: simplifying the model, gathering more data, removing redundant/irrelevant data, cleaning up data noise, and applying regularization.
 - **Regularization**: The process of constraining a model to keep it simpler and reduce overfitting. The amount of regularization is controlled by a hyperparameter, which is set prior to training and remains constant. Common techniques include: L1 (Lasso) and L2 (Ridge).
@@ -156,6 +157,8 @@ After the model is trained (on the training set, not on the train-dev set), you 
 You can try to tackle this problem by preprocessing the web images to make them look more like the pictures that will be taken by the mobile app, and then retraining the model.
 Conversely, if the model performs poorly on the train-dev set, then the model must have overfit the training set, so you should try to simplify or regularize the model, get more training data and clean up the training data, as discussed earlier.
 
+---
+
 # Exploratory Data Analysis
 
 Exploratory Data Analysis (EDA) is the process of summarizing, visualizing, and understanding the data.
@@ -177,6 +180,85 @@ Skipping EDA is a common rookie mistake most data scientists make when trying to
 - **Missing value analysis**: Deciding how to handle gaps in the data.
 - **Correlation analysis**: Identifying how features relate to one another.
 - **Visualization**: Spotting patterns quickly using plotting tools like scatter plots.
+
+## Data Profiling vs EDA
+
+| Data Profiling                                                                                         | Exploratory Data Analysis (EDA)                                                                       |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Focuses on summarizing and assessing data quality.                                                     | A broader process of understanding data and discovering patterns.                                     |
+| Answers: What does the data look like? Is it clean?.                                                   | Answers: What is happening in the data and why?                                                       |
+| Mostly involves descriptive statistics (mean, median, standard deviation, missing counts, data types). | Includes visualization, observing relationships, and building hypotheses.                             |
+| Usually serves as the first step of EDA.                                                               | Goes beyond simple profiling to include correlation analysis, scatter plots, and feature engineering. |
+
+## From Business Problem to Data Structure
+
+Machine learning is used to solve specific business problems.
+To determine an ML solution, you must ask what the business goals are, how the business currently works (requiring domain knowledge), and how predictive models can address the problem.
+Every potential solution must be evaluated for feasibility:
+
+- Is the data required by the solution available, or could it be made
+available?
+- Does the right data exist?
+  - At the right level of granularity?
+  - In the necessary quantities?
+  - Within the required time frame?
+  - Is it legally obtainable?
+  - What is the capacity of the business to utilize the insights that the analytics solution will provide?
+
+![designmatrix](https://i.imgur.com/pvHMZVK.png)
+
+Once you've found and selected a feasible solution, you need to design a structure to store the data called the **Design Matrix**.
+In a design matrix, each column stores a feature, and each row represents a single sample or instance of data from the dataset.
+For supervised models, we store an additional target matrix or target vector for all the actual values we want to be able to predict accurately based on the sample dataset.
+
+## Data Types
+
+- **Numeric**: Quantitative variables that store real numbers (continuous variables)
+  - **Integer**: Genuine whole numbers where arithmetic is meaningful. (e.g. number of children)
+- **Interval**: Ordered data with a known 0 point. (e.g. time intervals or tax bracket)
+- **Categorical**: Qualitative variables that group variables into certain categories (e.g. color or size)
+  - **Ordinal**: Categories with meaningful order (e.g. sizes like small, medium, large)
+  - **Nominal**: Categories without mathematical interpretation (e.g. colors labeled 1, 2, 3)
+    - **Binary**: Nominal variables restricted to only two values (e.g. alive)
+- **Text**: Free form text data
+- **Ratio Scaled**: Data where ratios makes sense (e.g. a 10kg weight is twice 5kg)
+
+## Feature Engineering
+
+**Feature engineering** is the process of using domain knowledge to transform raw data into informative features (variables) that enhance the accuracy and performance of machine learning models.
+Basically, it involves selecting, modifying, or deriving new variables from existing data to make patterns more accessible to algorithms.
+It is an iterative, and often manual, process combining domain knowledge and data analysis to transform raw data into actionable ML models.
+Common techniques used in feature engineering include:
+
+- **Imputation**: Filling in missing values using median, mean, mode, or other advanced ML models (like k-Nearest neighbours).
+- **Encoding**: Converting categorical text data into numerical format (e.g. one-hot encoding).
+- **Scaling**: Normalizing or standardizing numerical data (e.g. Min-Max scaling or Standard scaling) to reduce bias of larger values
+- **Transformation**: Applying functions like logarithm to handle skewed data.
+- **Derivation**: Creating new features via aggregates (means, maxes), reducing granularity (minutes to hours), creating binary flags, calculating ratios (click through rate), or mapping continuous values to categories.
+
+## Exploring Data
+
+Categorical variables are explored by examining the percentage of their representation (often via bar plots) to find common values.
+
+Continuous or numeric variables are summarized using the mean, standard deviation, histograms, and box plots to describe central tendency and variation.
+
+Common distributions include the uniform distribution (all values are equally likely), normal distribution (they are just frequent in nature), exponential distribution (time until an event).
+Be careful when summarizing continuous variables though! Multimodal distributions indicate multiple groups making the mean a misleading metric.
+
+### Data Quality Issues
+
+- **Missing values**: Find the percentage of missing values per column (feature). Missingness can carry a lot of information (sensor failure, integration loss, or intentional ommissions). If a feature is missing more than ~60% of its values, it is generally better to drop it before training the model. Missing values can also be imputed if missingness is less than ~30%, though this can bias data as it is not accurate.
+- **Irregular cardinality**: If a categorical feature has a cardinality of 1 (all values are identical), it should be removed. On the other hand, if cardinality equals the dataset size (no values are identical), it might actually be a continuous variable.
+- **Outliers**: Outliers can be invalid errors or valid but unusual events and you want to be careful of which outlier appearing entries you erase during data cleaning.
+- Outliers can be handled by clamping the values using the whiskers of the box plot or using the mean plus/minus a multiple of the standard deviation. If the value is invalid and the feature is important, consider removing the observation (sample) entirely.
+
+### Feature Relationship
+
+<!-- TODO: talk about variance, std dev, covariance, correlation, cauchy-shwarz inequality, projections, dot products -->
+
+## Data Preparation
+
+## Sampling Strategies
 
 ---
 
