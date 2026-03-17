@@ -9,7 +9,7 @@ This particular performance measure is called *accuracy* and it is often used in
 
 More realistically, machine learning is a set of methods that can automatically detect patterns in data, and then use the uncovered patterns to predict future data, or to perform other kinds of decision making under uncertainty.
 
-![process](https://i.imgur.com/uNjJwZH.png)
+![mlprocess](https://i.imgur.com/uNjJwZH.png)
 
 Here is a detailed step-by-step explanation of the machine learning process:
 
@@ -254,11 +254,56 @@ Be careful when summarizing continuous variables though! Multimodal distribution
 
 ### Feature Relationship
 
-<!-- TODO: talk about variance, std dev, covariance, correlation, cauchy-shwarz inequality, projections, dot products -->
+Summarizing and understanding the statistics behind features is very important.
+The most common variables that are measured are the mean (average), median (middle), and mode (frequent).
+These are self-explanatory as to what each variable describes about the data set.
+
+You can also measure the variance of a dataset which indicates how tightly clustered the data is around the mean. Basically, it quantifies the amount of dispersion in a set of data values.
+The variance is measured by finding the average of all the distances squared between every data point and the mean (or E(X) in the figure).
+The standard deviation of a data set also represents variance and is measured as the square root of the variance. Standard deviation is more commonly used and preferred over variance primarily because it is in the same units as the original data, making it directly interpretable, intuitive, and easy to compare with the mean.
+The normal distribution has nothing to do with the definition of standard deviation, it just happened to cover a fixed ratio of the normal distribution and it became a well-known fact in statistics.
+
+![featrelformulas](https://i.imgur.com/jNtFRu8.png)
+
+Summarizing an individual feature is easy but when you're trying to find the relation of a feature with another, it starts to become confusing.
+Covariance measures the linear relationship between variables and the degree to which they deviate from their means together. Refer to the figure above to understand how covariance is calculated.
+However, a major issue with covariance is that it maintains the units of each variable, making it difficult to compare relationships across different scales.
+Correlation solves this by normalizing the covariance, removing the units, and limiting the range to `[-1, 1]`.
+Refer to the figure above to understand how correlation is calculated.
+
+If the correlation is close to -1, it indicates a strong negative relationship between the two variables (as one grows, the other declines).
+If the correlation is close to 0, it indicates a weak relationship between the two variables (not really related).
+If the correlation is close to 1, it indicates a strong positive relationship between the two variables (as one grows, the other grows too).
+
+If you are wondering how the correlation formula actually normalizes covariance, you're asking the right questions.
+To answer your question shortly, the proof is based on simple vector math.
+But if you're curious to explore it more, look into the Cauchy-Shwarz inequality which explains the proof.
 
 ## Data Preparation
 
+When preparing data for the machine learning models, the most essential procedures are normalization and binning to make sure the data is optimal for the models to learn.
+There are many normalization techniques such as min-max scaling and standard scaling.
+Min-Max scaling just modifies the range of a feature to fit within a specific scale, like `[0, 1]`.
+Standard scaling normalizes features by removing the mean and scaling to unit variance, ensuring each numerical feature has a mean of 0 and a standard deviation of 1.
+Normalization is essential for machine learning algorithms that are sensitive to data scale (like KNN, SVM, Linear Regression, etc).
+
+Binning, also called discretization, converts continuous features into categorical features to help algorithms and manage outliers.
+Equal-width binning splits values into bins of the exact same size range.
+Equal-frequency binning sorts values and places and equal number of data instances into each bin.
+Custom binning uses domain knowledge to dictate meaningful boundaries (e.g., defining "rush hour" times).
+
 ## Sampling Strategies
+
+Sampling is critical in machine learning when dealing with massive datasets that are computationally expensive to process, imbalanced data that causes bias, or when needing to validate model performance efficiently.
+It enables training on a representative subset to reduce training time, prevent overfitting, and ensure fair, accurate models.
+
+The most popular samplings strategies are:
+
+- **Top sampling**: Selecting a flat percentage from the top of the dataset. This is almost always biased based on how the data was ordered.
+- **Random sampling**: Randomly selecting a flat percentage. It is better, but does not always preserve data relationships.
+- **Stratified sampling**: Grouping the dataset by a variable (strata) and randomly sampling a percentage from each group to preserve relative frequencies.
+- **Under-sampling**: Equalizing a dataset by randomly sampling the abundant class to match the size of the smallest minority class.
+- **Over-sampling**: Equalizing a dataset by generating synthetic data for the minority class (e.g., using SMOTE) to match the abundant class.
 
 ---
 
