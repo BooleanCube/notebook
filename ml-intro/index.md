@@ -169,6 +169,8 @@ EDA is important because it ensures future model results will be meaningful and 
 From EDA we might also uncover hidden patterns that might not be inherently obvious, such as sales spiking only on weekends.
 Skipping EDA is a common rookie mistake most data scientists make when trying to build a model to solve their problem.
 
+Here is an example of an assignment illustrating the entire EDA process: [A1 EDA](https://colab.research.google.com/drive/1KKf1LwPzr4hsg8aMw2bbV2ux9Kt1Z4Xw?usp=sharing)
+
 ## Common EDA Methods and Tasks
 
 - **Univariate analysis**: Studying one variable at a time (e.g. histogram of student grades).
@@ -304,6 +306,12 @@ The most popular samplings strategies are:
 - **Stratified sampling**: Grouping the dataset by a variable (strata) and randomly sampling a percentage from each group to preserve relative frequencies.
 - **Under-sampling**: Equalizing a dataset by randomly sampling the abundant class to match the size of the smallest minority class.
 - **Over-sampling**: Equalizing a dataset by generating synthetic data for the minority class (e.g., using SMOTE) to match the abundant class.
+
+---
+
+# Classification and Evaluation
+
+
 
 ---
 
