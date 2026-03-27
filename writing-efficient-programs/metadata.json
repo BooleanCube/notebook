@@ -1,0 +1,13 @@
+{
+  "title": "The Art of Writing Efficient Programs",
+  "summary": "Learn about writing CPU and concurrency efficient programs.",
+  "tags": [
+    "optimization",
+    "cpu",
+    "concurrency",
+    "programming"
+  ],
+  "date": 1774612064000,
+  "cover": "https://i.imgur.com/1KfJvJZ.png",
+  "hidden": false
+}
