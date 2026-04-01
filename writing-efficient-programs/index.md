@@ -79,3 +79,36 @@ If the program can process audio ten times faster than a person can speak, it do
 
 On the other hand, if the program occasionally falls behind, some sounds or even words will be dropped.
 This suggests that the real time, or speed, matters up to a point, but it must be delivered in a predictable manner.
+
+## Evaluating, estimating, and predicting performance
+
+Guessing about performance, is unfortunately, all too widespread.
+Many programmers and developers throw vague comments around about not using a specific tool (like `virtual` functions in C++) because they are slower.
+However, that is not always accurate, and in this example, `virtual` functions can actually be faster in some contexts.
+
+But there's another problem. Performance isn't something that can be easily added to a program later after development.
+Therefore performance considerations and targets play a crucial role during the initial design and development stages.
+There is a definite tension between these early performance-related goals and the rule to never guess about performance and we have to find the right compromise.
+While it's almost impossible to predict the best optimizations in advance, it is possible to identify design decisions that would make subsequent optimizations very hard of even unfeasible.
+For example, during program development: it is foolish to spend long hours optimizing a function that ends up being called once a day and takes only a second.
+On the other hand, it is very wise to encapsulate this code into a function in the first place, so if the use patterns change as the program evolves, it can be optimized later without rewriting the rest of the program.
+
+## Learning about high performance
+
+Here is a general list of the required skills and knowledge for writing high-performing code:
+
+- **Data Structures and Algorithms**: Choosing the best algorithm is the most important factor in high-performance code. Algorithms are very problem specific and out of the scope of this page.
+- **Computing Hardware Resources**: The next most important factor is using the computing hardware resources provided efficiently.
+  - **CPU**: Utilizing more transistors, using more idle CPU resources, avoiding unnecessary computations
+  - **Memory**: Avoiding longer wait times for memory
+- **Concurrency**: Running programs concurrently effectively without bottlenecking CPU and memory resources is also very significant.
+- **Language & Compiler**: Understanding how the compiler interprets your code in the written language chosen is also important to avoid inefficiencies that might cause unnecessary computations.
+- **Measuring Performance**: Last but not least, measuring performance and interpreting the results effectively for your specific problem context is very important.
+
+In this page, we will learn about the hardware architecture, and what is hidden behind some programming language features, and how to see our code the way the compilers see it.
+These skills are important, but what is even more important is to understand why things work the way they do.
+The computing hardware changes fairly often, the languages evolve, and new optimization algorithms for the compilers are invented.
+Thus, the specific knowledge in any of these areas has a fairly short shelf life.
+However, if you understand not just the best ways to use a particular processor or compiler but also the ways in which we have arrived at this knowledge, you will be well prepared to repeat this process of discovery and, therefore, continue to learn.
+
+---
